@@ -58,33 +58,31 @@ for i in range(0, 30):
         before = bbs.bounding_boxes[j]
         after = bbs_aug.bounding_boxes[j]
 
+    if bbs_aug.bounding_boxes[0].x1 < 0 :
+        bbs_aug.bounding_boxes[0].x1 = 0
+    else :
+        bbs_aug.bounding_boxes[0].x1 = int(bbs_aug.bounding_boxes[0].x1)
+    if bbs_aug.bounding_boxes[0].y1 < 0 :
+        bbs_aug.bounding_boxes[0].y1 = 0
+    else :
+        bbs_aug.bounding_boxes[0].y1 = int(bbs_aug.bounding_boxes[0].y1)
+    if bbs_aug.bounding_boxes[0].x2 > width - 1 :
+        bbs_aug.bounding_boxes[0].x2 = width - 1
+    else :
+        bbs_aug.bounding_boxes[0].x2 = int(bbs_aug.bounding_boxes[0].x2)
+    if bbs_aug.bounding_boxes[0].y2 > height - 1 :
+        bbs_aug.bounding_boxes[0].y2 = height - 1
+    else :
+        bbs_aug.bounding_boxes[0].y2 = int(bbs_aug.bounding_boxes[0].y2)
+
+
     image_before = bbs_aug.draw_on_image(image, thickness=20)
     image_after = bbs_aug.draw_on_image(image_aug2, thickness=20, color=[0, 0, 255])
 
-    afterX1 = 0
-    afterY1 = 0
-    afterX2 = 0
-    afterY2 = 0
-    print(bbs_aug.bounding_boxes[0])
-    if bbs_aug.bounding_boxes[0].x1 < 0 :
-        afterX1 = 0
-    else :
-        afterX1 = int(bbs_aug.bounding_boxes[0].x1)
-    if bbs_aug.bounding_boxes[0].y1 < 0 :
-        afterY1 = 0
-    else :
-        afterY1 = int(bbs_aug.bounding_boxes[0].y1)
-    if bbs_aug.bounding_boxes[0].x2 > width - 1 :
-        afterX2 = width - 1
-    else :
-        afterX2 = int(bbs_aug.bounding_boxes[0].x2)
-    if bbs_aug.bounding_boxes[0].y2 < height - 1 :
-        afterY2 = height - 1
-    else :
-        afterY2 = int(bbs_aug.bounding_boxes[0].y2)
+
 
     cv2.imwrite('images/afterAug'+str(i)+'.jpg', image_after)
-    outputData = outputData + 'images/afterAug'+str(i)+'.jpg' + " " + str(afterX1) + "," + str(afterY1) + ","+ str(afterX2) + ","+ str(afterY2) + ",0\n"
+    outputData = outputData + 'images/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",0\n"
 
 f = open("train.txt", 'w')
 f.write(outputData)
