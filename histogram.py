@@ -65,10 +65,11 @@ def get_color(image, convert = False):
 					c[0] += color[0]
 					c[1] += color[1]
 					c[2] += color[2]
-	c[0] = c[0] // i
-	c[1] = c[1] // i
-	c[2] = c[2] // i
-	c=tuple(c)
+	if i != 0 :
+		c[0] = c[0] // i
+		c[1] = c[1] // i
+		c[2] = c[2] // i
+		c = tuple(c)
 
 	print('avg_color: ', c)
 	return c
