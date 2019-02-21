@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import imgaug as ia
 from imgaug import augmenters as iaa
+from imgaug import parameters as iap
 from files import *
 import random
 
@@ -14,12 +15,15 @@ x2 = 219
 y2 = 534
 height, width = image.shape[:2]
 
-for i in range(0, 30):
+for i in range(0, 100):
     functionRand = random.randrange(0, 10)
-    scaleXrand = random.uniform(0.5, 1)
-    scaleYrand = random.uniform(0.5, 1)
+    scaleXrand = random.uniform(0.25, 1)
+    scaleYrand = random.uniform(0.25, 1)
+    transXrand = random.uniform(-0.4, 0.4)
+    transYrand = random.uniform(-0.4, 0.4)
     rotateRand = random.randrange(-90, 90)
     shearRand = random.randrange(-45, 45)
+
 
     ia.seed(1)
 
@@ -31,9 +35,9 @@ for i in range(0, 30):
     #rotate and size change
     chSeq = iaa.Affine(
         scale=(scaleXrand, scaleYrand),
-        translate_percent={"x":(-0.2, 0.2), "y":(-0.2, 0.2)},
-        rotate=(rotateRand, -1 * rotateRand),
-        shear=(shearRand, -1 * shearRand)
+        translate_percent={"x":(0, transXrand), "y":(0, transYrand)},
+        rotate=(rotateRand, 0),
+        shear=(shearRand, 0)
     )
 
     chSeq_det = chSeq.to_deterministic()
@@ -43,14 +47,18 @@ for i in range(0, 30):
 
     seq = iaa.Affine()
     # not rotate
-    if functionRand < 2:
+    if functionRand < 1:
         seq = iaa.Superpixels(p_replace=0.5, n_segments=64)
-    elif functionRand < 4:
+    elif functionRand < 2:
         seq = iaa.Sharpen(alpha=(0.0, 1.0), lightness=(0.75, 2.0))
-    elif functionRand < 6:
+    elif functionRand < 3:
         seq = iaa.ContrastNormalization((0.5, 1.5), per_channel=0.5)
-    elif functionRand < 8:
+    elif functionRand < 4:
         seq = iaa.AddElementwise((-40, 40))
+    elif functionRand < 5:
+        seq = iaa.CoarseDropout(0.04, size_percent=0.5)
+    elif functionRand < 6:
+        seq = iaa.Multiply((0.5, 1.5))
 
     image_aug2 = seq.augment_images([image_aug])[0]
 
