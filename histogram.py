@@ -2,15 +2,23 @@
 from PIL import Image
 import math
 import numpy as np
+from colormath.color_objects import LabColor, sRGBColor
+from colormath.color_diff import delta_e_cie1976
+from colormath.color_conversions import convert_color
 
 def floor(number):
 	return number-number%10
 
 def compare_color(img1, img2):
 	histo_param = 60
-
-	color1 = get_color(img1)
-	color2 = get_color(img2)
+	a=get_color(img1)
+	b=get_color(img2, convert = True)
+	a1=sRGBColor(a[0],a[1],a[2])
+	b1=sRGBColor(b[0],b[1],b[2])
+	color1 = convert_color(a1, LabColor)
+	color2 = convert_color(b1, LabColor)
+	delta_e = delta_e_cie1976(color1, color2)
+	print("delta_e: ", delta_e)
 
 	# temp1 = []
 	# temp2 = []
@@ -30,31 +38,40 @@ def compare_color(img1, img2):
 	# else:
 	# 	return False
 
-	if (((abs(color1[0]-color2[0])<histo_param) and (abs(color1[1]-color2[1])<histo_param))or
-		((abs(color1[0]-color2[0])<histo_param) and (abs(color1[2]-color2[2])<histo_param))or
-		((abs(color1[1]-color2[1])<histo_param) and (abs(color1[2]-color2[2])<histo_param))):
+	if delta_e < 3000:
 		return True
 	else:
 		return False
 
 
 # get the dominant color and show it
-def get_color(image):
+def get_color(image, convert = False):
 
 	# get top-1 color
 	colors = image.getcolors(image.size[0] * image.size[1])
-	max = 0
-	max_color = (255, 255, 255)
+	i = 0
+	c = [0,0,0]
 	for (count, color) in colors:
-		if count > max:
-			if (abs(color[0]-color[1])>20 and
-				# abs(color[1]-color[2])>20 and
-				abs(color[2]-color[0])>20):
-				max = count
-				max_color= color
+		if (abs(color[0]-color[1])>20 and
+			# abs(color[1]-color[2])>20 and
+			abs(color[2]-color[0])>20):
+			i = i + count
+			for a in range(count):
+				if convert:
+					c[2] += color[0]
+					c[1] += color[1]
+					c[0] += color[2]
+				else:
+					c[0] += color[0]
+					c[1] += color[1]
+					c[2] += color[2]
+	c[0] = c[0] // i
+	c[1] = c[1] // i
+	c[2] = c[2] // i
+	c=tuple(c)
 
-	print(max_color)
-	return max_color
+	print('avg_color: ', c)
+	return c
 
 	'''
 	# get top-3 colors
