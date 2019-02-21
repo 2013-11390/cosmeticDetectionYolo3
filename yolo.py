@@ -18,6 +18,8 @@ from yolo3.utils import letterbox_image
 import os
 from keras.utils import multi_gpu_model
 
+from histogram import compare_color
+
 class YOLO(object):
     _defaults = {
         "model_path": 'model_data/trained_weights_stage_1.h5',
@@ -136,32 +138,38 @@ class YOLO(object):
                 box = out_boxes[i]
                 score = out_scores[i]
 
-                label = '{} {:.2f}'.format(predicted_class, score)
-                draw = ImageDraw.Draw(image)
-                label_size = draw.textsize(label, font)
-
+                # crop image
                 top, left, bottom, right = box
-                top = max(0, np.floor(top + 0.5).astype('int32'))
-                left = max(0, np.floor(left + 0.5).astype('int32'))
-                bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
-                right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
-                print(label, (left, top), (right, bottom))
+                area = (left, top, right - left, bottom - top)
+                cropped_img = image.crop(area)
+                origin = Image.open('/images/image.jpg')
+                if (compare_color(origin, cropped_img)):
+                    label = '{} {:.2f}'.format(predicted_class, score)
+                    draw = ImageDraw.Draw(image)
+                    label_size = draw.textsize(label, font)
 
-                if top - label_size[1] >= 0:
-                    text_origin = np.array([left, top - label_size[1]])
-                else:
-                    text_origin = np.array([left, top + 1])
+                    top, left, bottom, right = box
+                    top = max(0, np.floor(top + 0.5).astype('int32'))
+                    left = max(0, np.floor(left + 0.5).astype('int32'))
+                    bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
+                    right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
+                    print(label, (left, top), (right, bottom))
 
-                # My kingdom for a good redistributable image drawing library.
-                for i in range(thickness):
+                    if top - label_size[1] >= 0:
+                        text_origin = np.array([left, top - label_size[1]])
+                    else:
+                        text_origin = np.array([left, top + 1])
+
+                    # My kingdom for a good redistributable image drawing library.
+                    for i in range(thickness):
+                        draw.rectangle(
+                            [left + i, top + i, right - i, bottom - i],
+                            outline=self.colors[c])
                     draw.rectangle(
-                        [left + i, top + i, right - i, bottom - i],
-                        outline=self.colors[c])
-                draw.rectangle(
-                    [tuple(text_origin), tuple(text_origin + label_size)],
-                    fill=self.colors[c])
-                draw.text(text_origin, label, fill=(0, 0, 0), font=font)
-                del draw
+                        [tuple(text_origin), tuple(text_origin + label_size)],
+                        fill=self.colors[c])
+                    draw.text(text_origin, label, fill=(0, 0, 0), font=font)
+                    del draw
 
         end = timer()
         print(end - start)
