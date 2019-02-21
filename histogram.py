@@ -1,20 +1,43 @@
 # import the necessary packages
 from PIL import Image
+import math
+import numpy as np
+
+def floor(number):
+	return number-number%10
 
 def compare_color(img1, img2):
-	color_param = 50
+	color1 = get_color(img1)
+	color2 = get_color(img2)
 
-	color1 = get_color(img1, color_param)
-	color2 = get_color(img2, color_param)
-	if (((abs(color1[0]-color2[0])<color_param) and (abs(color1[1]-color2[1])<color_param))or
-		((abs(color1[0]-color2[0])<color_param) and (abs(color1[2]-color2[2])<color_param))or
-		((abs(color1[1]-color2[1])<color_param) and (abs(color1[2]-color2[2])<color_param))):
+	# temp1 = []
+	# temp2 = []
+	# for i in range(0, 3):
+	# 	if (floor(color1[i]) == 0):
+	# 		temp1.append(1)
+	# 	else:
+	# 		temp1.append(floor(color1[i]))
+	# 	if (floor(color2[i]) == 0):
+	# 		temp2.append(1)
+	# 	else:
+	# 		temp2.append(floor(color2[i]))
+	# print(temp1, temp2)
+	#
+	# if (temp1[0]/temp2[0] == temp1[1]/temp2[1] and temp1[1]/temp2[1] == temp1[2]/temp2[2]):
+	# 	return True
+	# else:
+	# 	return False
+
+	if (((abs(color1[0]-color2[0])<60) and (abs(color1[1]-color2[1])<255))or
+		((abs(color1[0]-color2[0])<60) and (abs(color1[2]-color2[2])<255))or
+		((abs(color1[1]-color2[1])<60) and (abs(color1[2]-color2[2])<255))):
 		return True
 	else:
 		return False
 
+
 # get the dominant color and show it
-def get_color(image, col_param):
+def get_color(image):
 
 	# get top-1 color
 	colors = image.getcolors(image.size[0] * image.size[1])
@@ -22,13 +45,13 @@ def get_color(image, col_param):
 	max_color = (255, 255, 255)
 	for (count, color) in colors:
 		if count > max:
-			if (abs(color[0]-color[1])>col_param and
-				abs(color[1]-color[2])>col_param and
-				abs(color[2]-color[0])>col_param):
+			if (abs(color[0]-color[1])>20 and
+				# abs(color[1]-color[2])>20 and
+				abs(color[2]-color[0])>20):
 				max = count
 				max_color= color
 
-	print("max color : ", max_color)
+	print(max_color)
 	return max_color
 
 	'''
