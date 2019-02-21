@@ -140,9 +140,9 @@ class YOLO(object):
 
                 # crop image
                 top, left, bottom, right = box
-                area = (left, top, right - left, bottom - top)
+                area = (left, top, right, bottom)
                 cropped_img = image.crop(area)
-                origin = Image.open('/images/image.jpg')
+                origin = Image.open('images/image.jpg')
                 if (compare_color(origin, cropped_img)):
                     label = '{} {:.2f}'.format(predicted_class, score)
                     draw = ImageDraw.Draw(image)
@@ -218,4 +218,3 @@ def detect_video(yolo, video_path, output_path=""):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     yolo.close_session()
-

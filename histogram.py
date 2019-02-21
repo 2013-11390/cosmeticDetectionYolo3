@@ -2,29 +2,33 @@
 from PIL import Image
 
 def compare_color(img1, img2):
-	color1 = get_color(img1)
-	color2 = get_color(img2)
-	if (((abs(color1[0]-color2[0])<20) and (abs(color1[1]-color2[1])<20))or
-		((abs(color1[0]-color2[0])<20) and (abs(color1[2]-color2[2])<20))or
-		((abs(color1[1]-color2[1])<20) and (abs(color1[2]-color2[2])<20))):
+	color_param = 50
+
+	color1 = get_color(img1, color_param)
+	color2 = get_color(img2, color_param)
+	if (((abs(color1[0]-color2[0])<color_param) and (abs(color1[1]-color2[1])<color_param))or
+		((abs(color1[0]-color2[0])<color_param) and (abs(color1[2]-color2[2])<color_param))or
+		((abs(color1[1]-color2[1])<color_param) and (abs(color1[2]-color2[2])<color_param))):
 		return True
 	else:
 		return False
 
 # get the dominant color and show it
-def get_color(image):
+def get_color(image, col_param):
 
 	# get top-1 color
 	colors = image.getcolors(image.size[0] * image.size[1])
 	max = 0
-	max_color = None
+	max_color = (255, 255, 255)
 	for (count, color) in colors:
 		if count > max:
-			if (abs(color[0]-color[1])>20 and
-				abs(color[1]-color[2])>20 and
-				abs(color[2]-color[0])>20):
+			if (abs(color[0]-color[1])>col_param and
+				abs(color[1]-color[2])>col_param and
+				abs(color[2]-color[0])>col_param):
 				max = count
 				max_color= color
+
+	print("max color : ", max_color)
 	return max_color
 
 	'''

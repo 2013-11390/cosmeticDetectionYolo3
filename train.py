@@ -16,7 +16,7 @@ from yolo3.utils import get_random_data
 def _main():
     annotation_path = 'train.txt'
     log_dir = 'logs/000/'
-    classes_path = 'model_data/cosmetics_classes.txt'
+    classes_path = 'model_data/coco_classes.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
     class_names = get_classes(classes_path)
     num_classes = len(class_names)
@@ -30,7 +30,7 @@ def _main():
             freeze_body=2, weights_path='model_data/tiny_yolo_weights.h5')
     else:
         model = create_model(input_shape, anchors, num_classes,
-            freeze_body=2, weights_path='model_data/trained_cosmetics.h5') # make sure you know what you freeze
+            freeze_body=2, weights_path='model_data/yolo.h5') # make sure you know what you freeze
 
     logging = TensorBoard(log_dir=log_dir)
     checkpoint = ModelCheckpoint(log_dir + 'ep{epoch:03d}-loss{loss:.3f}-val_loss{val_loss:.3f}.h5',
@@ -50,7 +50,7 @@ def _main():
     # Train with frozen layers first, to get a stable loss.
     # Adjust num epochs to your dataset. This step is enough to obtain a not bad model.
     if True:
-        model.compile(optimizer=Adam(lr=1e-3), loss={
+        model.compile(optimizer=Adam(lr=1e-4), loss={
             # use custom yolo_loss Lambda layer.
             'yolo_loss': lambda y_true, y_pred: y_pred})
 
@@ -60,7 +60,7 @@ def _main():
                 steps_per_epoch=max(1, num_train//batch_size),
                 validation_data=data_generator_wrapper(lines[num_train:], batch_size, input_shape, anchors, num_classes),
                 validation_steps=max(1, num_val//batch_size),
-                epochs=500,
+                epochs=100,
                 initial_epoch=0)
         model.save_weights(log_dir + 'trained_weights_stage_1.h5')
 
@@ -83,7 +83,7 @@ def get_anchors(anchors_path):
 
 
 def create_model(input_shape, anchors, num_classes, load_pretrained=True, freeze_body=2,
-            weights_path='model_data/trained_cosmetics.h5'):
+            weights_path='model_data/yolo.h5'):
     '''create the training model'''
     K.clear_session() # get a new session
     image_input = Input(shape=(None, None, 3))
