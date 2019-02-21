@@ -7,6 +7,8 @@ def floor(number):
 	return number-number%10
 
 def compare_color(img1, img2):
+	histo_param = 60
+
 	color1 = get_color(img1)
 	color2 = get_color(img2)
 
@@ -28,9 +30,9 @@ def compare_color(img1, img2):
 	# else:
 	# 	return False
 
-	if (((abs(color1[0]-color2[0])<60) and (abs(color1[1]-color2[1])<255))or
-		((abs(color1[0]-color2[0])<60) and (abs(color1[2]-color2[2])<255))or
-		((abs(color1[1]-color2[1])<60) and (abs(color1[2]-color2[2])<255))):
+	if (((abs(color1[0]-color2[0])<histo_param) and (abs(color1[1]-color2[1])<histo_param))or
+		((abs(color1[0]-color2[0])<histo_param) and (abs(color1[2]-color2[2])<histo_param))or
+		((abs(color1[1]-color2[1])<histo_param) and (abs(color1[2]-color2[2])<histo_param))):
 		return True
 	else:
 		return False
