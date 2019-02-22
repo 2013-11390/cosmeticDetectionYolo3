@@ -37,8 +37,8 @@ def compare_color(img1, img2):
 	# 	return True
 	# else:
 	# 	return False
-
-	if delta_e < 3000:
+	
+	if delta_e < 2600:
 		return True
 	else:
 		return False
@@ -52,9 +52,7 @@ def get_color(image, convert = False):
 	i = 0
 	c = [0,0,0]
 	for (count, color) in colors:
-		if (abs(color[0]-color[1])>20 and
-			# abs(color[1]-color[2])>20 and
-			abs(color[2]-color[0])>20):
+		if True:
 			i = i + count
 			for a in range(count):
 				if convert:
@@ -65,11 +63,13 @@ def get_color(image, convert = False):
 					c[0] += color[0]
 					c[1] += color[1]
 					c[2] += color[2]
-	if i != 0 :
+	if i == 0:
+		return (0,0,0)
+	else:
 		c[0] = c[0] // i
 		c[1] = c[1] // i
 		c[2] = c[2] // i
-		c = tuple(c)
+	c=tuple(c)
 
 	print('avg_color: ', c)
 	return c
@@ -111,3 +111,7 @@ def get_color(image, convert = False):
 	print(max_color1, max_color2, max_color3)
 	return max_color1
 	'''
+if __name__ == '__main__':
+	img1 = Image.open('cosmetic.jpg')
+	img2 = Image.open('cosmetic_lower_half.jpg')
+	compare_color(img1,img2)
