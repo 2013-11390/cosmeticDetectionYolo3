@@ -3,7 +3,7 @@ from PIL import Image
 import math
 import numpy as np
 from colormath.color_objects import LabColor, sRGBColor
-from colormath.color_diff import delta_e_cie1976
+from colormath.color_diff import delta_e_cie2000
 from colormath.color_conversions import convert_color
 
 def floor(number):
@@ -16,7 +16,7 @@ def compare_color(img1, img2):
 	b1=sRGBColor(b[0],b[1],b[2])
 	color1 = convert_color(a1, LabColor)
 	color2 = convert_color(b1, LabColor)
-	delta_e = delta_e_cie1976(color1, color2)
+	delta_e = delta_e_cie2000(color1, color2)
 	print("delta_e: ", delta_e)
 
 	# temp1 = []
@@ -36,8 +36,8 @@ def compare_color(img1, img2):
 	# 	return True
 	# else:
 	# 	return False
-
-	if delta_e < 3000:
+	
+	if delta_e < 30:
 		return True
 	else:
 		return False
@@ -51,21 +51,24 @@ def get_color(image, convert = False):
 	i = 0
 	c = [0,0,0]
 	for (count, color) in colors:
-		i = i + count
-		for a in range(count):
-			if convert:
-				c[2] += color[0]
-				c[1] += color[1]
-				c[0] += color[2]
-			else:
-				c[0] += color[0]
-				c[1] += color[1]
-				c[2] += color[2]
-	if i != 0 :
+		if True:
+			i = i + count
+			for a in range(count):
+				if convert:
+					c[2] += color[0]
+					c[1] += color[1]
+					c[0] += color[2]
+				else:
+					c[0] += color[0]
+					c[1] += color[1]
+					c[2] += color[2]
+	if i == 0:
+		return (0,0,0)
+	else:
 		c[0] = c[0] // i
 		c[1] = c[1] // i
 		c[2] = c[2] // i
-		c = tuple(c)
+	c=tuple(c)
 
 	print('avg_color: ', c)
 	return c
@@ -107,3 +110,7 @@ def get_color(image, convert = False):
 	print(max_color1, max_color2, max_color3)
 	return max_color1
 	'''
+if __name__ == '__main__':
+	img1 = Image.open('cosmetic.jpg')
+	img2 = Image.open('cosmetic_lower_half.jpg')
+	compare_color(img1,img2)
