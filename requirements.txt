@@ -1,3 +1,7 @@
 colormath
-json
 Pillow
+numpy
+Keras
+opencv-python
+imgaug
+matplotlib

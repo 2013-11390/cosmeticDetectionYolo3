@@ -10,7 +10,9 @@ for i, a in enumerate(mascara):
     f.write('images/' + a['filename'])
     f.write(" ")
     b = list(a['regions'].values())
+    i = False
     for j, c in enumerate(b):
+        i = True
         d= c['shape_attributes']
         f.write(str(d['x']))
         f.write(",")
@@ -23,22 +25,22 @@ for i, a in enumerate(mascara):
         f.write("0")
         if j < len(b) - 1:
             f.write(" ")
-    if brush[i]['regions']:
-        brush_list = list(brush[i]['regions'].values())
-        for j, c in enumerate(brush_list):
-            d = c['shape_attributes']
+    brush_list = list(brush[i]['regions'].values())
+    for j, c in enumerate(brush_list):
+        d = c['shape_attributes']
+        if i:
             f.write(" ")
-            f.write(str(d['x']))
-            f.write(",")
-            f.write(str(d['y']))
-            f.write(",")
-            f.write(str(d['x']+d['width']))
-            f.write(",")
-            f.write(str(d['y']+d['height']))
-            f.write(",")
-            f.write("1")
-            if j < len(b) - 1:
-                f.write(" ")
+        f.write(str(d['x']))
+        f.write(",")
+        f.write(str(d['y']))
+        f.write(",")
+        f.write(str(d['x']+d['width']))
+        f.write(",")
+        f.write(str(d['y']+d['height']))
+        f.write(",")
+        f.write("1")
+        if j < len(b) - 1:
+            f.write(" ")
     if i < len(mascara) - 1:
         f.write("\n")
 f.close()
