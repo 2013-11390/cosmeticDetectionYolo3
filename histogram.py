@@ -6,8 +6,42 @@ from colormath.color_objects import LabColor, sRGBColor
 from colormath.color_diff import delta_e_cie2000
 from colormath.color_conversions import convert_color
 
-def floor(number):
-	return number-number%10
+def dot(vector1, vector2, crop_param):
+    for i in range(0, crop_param):
+        for j in range(0, crop_param):
+            vector_sum = vector1[i][j][0] * vector2[i][j][0] + vector1[i][j][1] * vector2[i][j][1] + vector2[i][j][2] * vector2[i][j][2]
+    return vector_sum
+
+def cosine_compare(vector1, vector2, crop_param): #changed
+    similarity_param = 0.9
+    dot_product = dot(vector1, vector2, crop_param)
+    vector1_scale = math.sqrt(dot(vector1, vector1, crop_param))
+    vector2_scale = math.sqrt(dot(vector2, vector2, crop_param))
+    similarity = dot_product / (vector1_scale * vector2_scale)
+    #print("cosin_similarity : ", similarity)
+
+    if similarity > similarity_param:
+        return True
+    else :
+        return False
+
+
+def image_parse(crop_param, img):
+    #image = Image.open(src)
+    resized_image = img.resize((200,200))
+    #resized_image.save(dst)
+    # crop_param = 2
+    vector = np.zeros((crop_param, crop_param, 3))
+    crop_len = 200/crop_param
+    for i in range(0, crop_param):
+        for j in range(0, crop_param):
+            crop_image = resized_image.crop((crop_len * i, crop_len * j, crop_len * (i+1), crop_len * (j+1)))
+            #crop_image.save(str(i)+str(j)+'test.jpg')
+            rgb_crop_image = get_color(crop_image)
+            vector[i][j][0] = rgb_crop_image[0]
+            vector[i][j][1] = rgb_crop_image[1]
+            vector[i][j][2] = rgb_crop_image[2]
+    return vector
 
 def compare_color(img1, img2):
 	a=get_color(img1)
@@ -17,46 +51,12 @@ def compare_color(img1, img2):
 	color1 = convert_color(a1, LabColor)
 	color2 = convert_color(b1, LabColor)
 	delta_e = delta_e_cie2000(color1, color2)
-	print("delta_e: ", delta_e)
+	#print("delta_e: ", delta_e)
 
-	# temp1 = []
-	# temp2 = []
-	# for i in range(0, 3):
-	# 	if (floor(color1[i]) == 0):
-	# 		temp1.append(1)
-	# 	else:
-	# 		temp1.append(floor(color1[i]))
-	# 	if (floor(color2[i]) == 0):
-	# 		temp2.append(1)
-	# 	else:
-	# 		temp2.append(floor(color2[i]))
-	# print(temp1, temp2)
-	#
-	# if (temp1[0]/temp2[0] == temp1[1]/temp2[1] and temp1[1]/temp2[1] == temp1[2]/temp2[2]):
-	# 	return True
-	# else:
-	# 	return False
-	
-	# If use cosine similarity instead of CIE algorithm
-	# cosine_similar(a,b)
-
-	if delta_e < 30:
+	if delta_e < 80:
 		return True
 	else:
 		return False
-
-def cosine_similar(color1, color2):
-	similarity_param = 0.9
-	c1 = list(color1)
-	c2 = list(color2)
-	similarity = ((c1[0]*c2[0]) + (c1[1]*c2[1]) + (c1[2]*c2[2])) / (math.sqrt(c1[0]*c1[0] + c1[1]*c1[1] + c1[2]*c1[2]) * math.sqrt(c2[0]*c2[0] + c2[1]*c2[1] + c2[2]*c2[2]))
-	print("cosin_similarity : ", similarity)
-
-	if similarity > similarity_param:
-		return True
-	else :
-		return False
-
 
 # get the dominant color and show it
 def get_color(image, convert = False):
@@ -85,46 +85,9 @@ def get_color(image, convert = False):
 		c[2] = c[2] // i
 	c=tuple(c)
 
-	print('avg_color: ', c)
+	#print('avg_color: ', c)
 	return c
 
-	'''
-	# get top-3 colors
-	colors = image.getcolors(image.size[0]*image.size[1])
-	max1 = 0
-	max2 = 0
-	max3 = 0
-	max_color1 = None
-	max_color2 = None
-	max_color3 = None
-	for (count, color) in colors:
-		if count>max1:
-			if (abs(color[0]-color[1])>20 and 
-				abs(color[1]-color[2])>20 and 
-				abs(color[2]-color[0])>20):
-				max3 = max2
-				max2 = max1
-				max1 = count
-				max_color3 = max_color2
-				max_color2 = max_color1
-				max_color1 = color
-		elif count>max2:
-			if (abs(color[0]-color[1])>20 and 
-				abs(color[1]-color[2])>20 and 
-				abs(color[2]-color[0])>20):
-				max3 = max2
-				max2 = count
-				max_color3 = max_color2
-				max_color2 = color
-		elif count > max3:
-			if (abs(color[0]-color[1])>20 and 
-				abs(color[1]-color[2])>20 and 
-				abs(color[2]-color[0])>20):
-				max3 = count
-				max_color3 = color
-	print(max_color1, max_color2, max_color3)
-	return max_color1
-	'''
 if __name__ == '__main__':
 	img1 = Image.open('cosmetic.jpg')
 	img2 = Image.open('cosmetic_lower_half.jpg')
