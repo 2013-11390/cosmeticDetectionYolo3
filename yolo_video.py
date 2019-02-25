@@ -2,6 +2,8 @@ import sys
 import argparse
 from yolo import YOLO, detect_video
 from PIL import Image
+import cv2
+import numpy
 
 def detect_img(yolo):
     while True:
@@ -13,7 +15,9 @@ def detect_img(yolo):
             continue
         else:
             r_image = yolo.detect_image(image)
-            r_image.show()
+            # r_image.show()
+            opencvImage = cv2.cvtColor(numpy.array(image), cv2.COLOR_RGB2BGR)
+            cv2.imwrite('pictures/test_result.png',opencvImage)
     yolo.close_session()
 
 FLAGS = None
@@ -25,7 +29,7 @@ if __name__ == '__main__':
     Command line options
     '''
     parser.add_argument(
-        '--model', type=str,
+        '--model_path', type=str,
         help='path to model weight file, default ' + YOLO.get_defaults("model_path")
     )
 
@@ -35,7 +39,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--classes', type=str,
+        '--classes_path', type=str,
         help='path to class definitions, default ' + YOLO.get_defaults("classes_path")
     )
 
@@ -52,16 +56,17 @@ if __name__ == '__main__':
     Command line positional arguments -- for video detection mode
     '''
     parser.add_argument(
-        "--input", nargs='?', type=str,required=False,default='./path2your_video',
+        "--input", nargs='?', type=str,required=False,default='./test_data/test_video.mp4',
         help = "Video input path"
     )
 
     parser.add_argument(
-        "--output", nargs='?', type=str, default="",
+        "--output", nargs='?', type=str, default="./test_data/detection_result_images",
         help = "[Optional] Video output path"
     )
 
     FLAGS = parser.parse_args()
+    print(vars(FLAGS))
 
     if FLAGS.image:
         """
@@ -72,6 +77,7 @@ if __name__ == '__main__':
             print(" Ignoring remaining command line arguments: " + FLAGS.input + "," + FLAGS.output)
         detect_img(YOLO(**vars(FLAGS)))
     elif "input" in FLAGS:
+        print('FLAGS.output: ',FLAGS.output)
         detect_video(YOLO(**vars(FLAGS)), FLAGS.input, FLAGS.output)
     else:
         print("Must specify at least video_input_path.  See usage with --help.")

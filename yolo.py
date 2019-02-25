@@ -134,42 +134,42 @@ class YOLO(object):
 
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
-            if predicted_class == 'bottle' :
-                box = out_boxes[i]
-                score = out_scores[i]
+            box = out_boxes[i]
+            score = out_scores[i]
 
-                # crop image
+            # crop image
+            top, left, bottom, right = box
+            area = (left, top, right - left, bottom - top)
+            cropped_img = image.crop(area)
+            origin = Image.open('images/image.jpg')
+            if (compare_color(origin, cropped_img)):
+                label = '{} {:.2f}'.format(predicted_class, score)
+                draw = ImageDraw.Draw(image)
+                label_size = draw.textsize(label, font)
+
                 top, left, bottom, right = box
-                area = (left, top, right, bottom)
-                cropped_img = image.crop(area)
-                origin = Image.open('images/image.jpg')
-                if (compare_color(origin, cropped_img)):
-                    label = '{} {:.2f}'.format(predicted_class, score)
-                    draw = ImageDraw.Draw(image)
-                    label_size = draw.textsize(label, font)
+                top = max(0, np.floor(top + 0.5).astype('int32'))
+                left = max(0, np.floor(left + 0.5).astype('int32'))
+                bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
+                right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
+                print(label, (left, top), (right, bottom))
 
-                    top, left, bottom, right = box
-                    top = max(0, np.floor(top + 0.5).astype('int32'))
-                    left = max(0, np.floor(left + 0.5).astype('int32'))
-                    bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
-                    right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
-                    print(label, (left, top), (right, bottom))
+                if top - label_size[1] >= 0:
+                    text_origin = np.array([left, top - label_size[1]])
+                else:
+                    text_origin = np.array([left, top + 1])
 
-                    if top - label_size[1] >= 0:
-                        text_origin = np.array([left, top - label_size[1]])
-                    else:
-                        text_origin = np.array([left, top + 1])
-
-                    # My kingdom for a good redistributable image drawing library.
-                    for i in range(thickness):
-                        draw.rectangle(
-                            [left + i, top + i, right - i, bottom - i],
-                            outline=self.colors[c])
+                # My kingdom for a good redistributable image drawing library.
+                for i in range(thickness):
                     draw.rectangle(
-                        [tuple(text_origin), tuple(text_origin + label_size)],
-                        fill=self.colors[c])
-                    draw.text(text_origin, label, fill=(0, 0, 0), font=font)
-                    del draw
+                        [left + i, top + i, right - i, bottom - i],
+                        outline=self.colors[c])
+                draw.rectangle(
+                    [tuple(text_origin), tuple(text_origin + label_size)],
+                    fill=self.colors[c])
+                draw.text(text_origin, label, fill=(0, 0, 0), font=font)
+                del draw
+
 
         end = timer()
         print(end - start)
@@ -183,7 +183,7 @@ def detect_video(yolo, video_path, output_path=""):
     vid = cv2.VideoCapture(video_path)
     if not vid.isOpened():
         raise IOError("Couldn't open webcam or video")
-    video_FourCC    = cv2.VideoWriter_fourcc(*"mp4v")
+    video_FourCC    = int(vid.get(cv2.CAP_PROP_FOURCC))
     video_fps       = vid.get(cv2.CAP_PROP_FPS)
     video_size      = (int(vid.get(cv2.CAP_PROP_FRAME_WIDTH)),
                         int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT)))
@@ -197,8 +197,6 @@ def detect_video(yolo, video_path, output_path=""):
     prev_time = timer()
     while True:
         return_value, frame = vid.read()
-        if not return_value:
-            break
         image = Image.fromarray(frame)
         image = yolo.detect_image(image)
         result = np.asarray(image)
@@ -220,3 +218,4 @@ def detect_video(yolo, video_path, output_path=""):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     yolo.close_session()
+
