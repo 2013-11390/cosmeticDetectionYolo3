@@ -4,7 +4,7 @@ from os import listdir
 from os.path import isfile, join
 import os
 
-classes = ["cosmetics"]
+classes = ["n03690938"]
 
 def convert_annotation(filename, list_file):
     in_file = open('Cosmetics_dataset/annotations/%s.xml'%(filename))
@@ -22,10 +22,17 @@ def convert_annotation(filename, list_file):
         list_file.write(" " + ",".join([str(a) for a in b]) + ',' + str(cls_id))
 
 
+annolist = listdir('Cosmetics_dataset/annotations')
 filelist = listdir('Cosmetics_dataset/images')
+
 list_file = open('Cosmetics_dataset/Cosmetics_train_data.txt', 'w')
 for file in filelist:
-    filename = os.path.splitext(file)
-    convert_annotation(filename[0], list_file)
+    filename = os.path.splitext(file)[0]
+    annoname = filename + ".xml"
+    if annoname in annolist:
+        list_file.write('Cosmetics_dataset/images/%s' % (file))
+        convert_annotation(filename, list_file)
+        list_file.write('\n')
+list_file.close()
 
 
