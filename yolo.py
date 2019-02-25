@@ -18,17 +18,18 @@ from yolo3.utils import letterbox_image
 import os
 from keras.utils import multi_gpu_model
 
-from histogram import compare_color
-
 class YOLO(object):
     _defaults = {
-        "model_path": 'model_data/trained_weights_stage_1.h5',
+        # "model_path": 'model_data/yolo_weights.h5',                   # 0 original yolo model
+        # "model_path": 'model_data/derived_model.h5',         # 1 to test the derived model for coco-dataset
+        "model_path": 'model_data/raccoon_derived_model.h5',           # 2-1) to test the raccoon_dataset_derived_model
         "anchors_path": 'model_data/yolo_anchors.txt',
-        "classes_path": 'model_data/coco_classes.txt',
+        # "classes_path": 'model_data/coco_classes.txt',
+        "classes_path": 'Raccoon_dataset/raccoon_classes.txt',         # 2-2) to test the raccoon_dataset_derived_model
         "score" : 0.3,
         "iou" : 0.45,
         "model_image_size" : (416, 416),
-        "gpu_num" : 1,
+        "gpu_num" : 0,
     }
 
     @classmethod
@@ -75,9 +76,11 @@ class YOLO(object):
                 if is_tiny_version else yolo_body(Input(shape=(None,None,3)), num_anchors//3, num_classes)
             self.yolo_model.load_weights(self.model_path) # make sure model, anchors and classes match
         else:
-            assert self.yolo_model.layers[-1].output_shape[-1] == \
-                num_anchors/len(self.yolo_model.output) * (num_classes + 5), \
-                'Mismatch between model and given anchor and class sizes'
+            print('output_shape = %d' %(self.yolo_model.layers[-1].output_shape[-1]))
+            print('num_anchors = %d' % num_anchors)
+            print('len = %d' %(len(self.yolo_model.output) * (num_classes + 5)))
+            print('len_output = %d' %(len(self.yolo_model.output)))
+            assert self.yolo_model.layers[-1].output_shape[-1] == num_anchors/len(self.yolo_model.output) * (num_classes + 5), 'Mismatch between model and given anchor and class sizes'
 
         print('{} model, anchors, and classes loaded.'.format(model_path))
 
@@ -134,42 +137,35 @@ class YOLO(object):
 
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
-            if predicted_class == 'bottle' :
-                box = out_boxes[i]
-                score = out_scores[i]
+            box = out_boxes[i]
+            score = out_scores[i]
 
-                # crop image
-                top, left, bottom, right = box
-                area = (left, top, right, bottom)
-                cropped_img = image.crop(area)
-                origin = Image.open('images/image.jpg')
-                if (compare_color(origin, cropped_img)):
-                    label = '{} {:.2f}'.format(predicted_class, score)
-                    draw = ImageDraw.Draw(image)
-                    label_size = draw.textsize(label, font)
+            label = '{} {:.2f}'.format(predicted_class, score)
+            draw = ImageDraw.Draw(image)
+            label_size = draw.textsize(label, font)
 
-                    top, left, bottom, right = box
-                    top = max(0, np.floor(top + 0.5).astype('int32'))
-                    left = max(0, np.floor(left + 0.5).astype('int32'))
-                    bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
-                    right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
-                    print(label, (left, top), (right, bottom))
+            top, left, bottom, right = box
+            top = max(0, np.floor(top + 0.5).astype('int32'))
+            left = max(0, np.floor(left + 0.5).astype('int32'))
+            bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
+            right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
+            print(label, (left, top), (right, bottom))
 
-                    if top - label_size[1] >= 0:
-                        text_origin = np.array([left, top - label_size[1]])
-                    else:
-                        text_origin = np.array([left, top + 1])
+            if top - label_size[1] >= 0:
+                text_origin = np.array([left, top - label_size[1]])
+            else:
+                text_origin = np.array([left, top + 1])
 
-                    # My kingdom for a good redistributable image drawing library.
-                    for i in range(thickness):
-                        draw.rectangle(
-                            [left + i, top + i, right - i, bottom - i],
-                            outline=self.colors[c])
-                    draw.rectangle(
-                        [tuple(text_origin), tuple(text_origin + label_size)],
-                        fill=self.colors[c])
-                    draw.text(text_origin, label, fill=(0, 0, 0), font=font)
-                    del draw
+            # My kingdom for a good redistributable image drawing library.
+            for i in range(thickness):
+                draw.rectangle(
+                    [left + i, top + i, right - i, bottom - i],
+                    outline=self.colors[c])
+            draw.rectangle(
+                [tuple(text_origin), tuple(text_origin + label_size)],
+                fill=self.colors[c])
+            draw.text(text_origin, label, fill=(0, 0, 0), font=font)
+            del draw
 
         end = timer()
         print(end - start)
@@ -181,6 +177,12 @@ class YOLO(object):
 def detect_video(yolo, video_path, output_path=""):
     import cv2
     vid = cv2.VideoCapture(video_path)
+    print('vid: ', vid)
+    print('output_path: ', output_path)
+
+    out_image_folder = output_path
+    os.makedirs(out_image_folder, exist_ok=True)
+
     if not vid.isOpened():
         raise IOError("Couldn't open webcam or video")
     video_FourCC    = int(vid.get(cv2.CAP_PROP_FOURCC))
@@ -190,13 +192,19 @@ def detect_video(yolo, video_path, output_path=""):
     isOutput = True if output_path != "" else False
     if isOutput:
         print("!!! TYPE:", type(output_path), type(video_FourCC), type(video_fps), type(video_size))
-        out = cv2.VideoWriter(output_path, video_FourCC, video_fps, video_size)
+        # out = cv2.VideoWriter(output_path, video_FourCC, video_fps, video_size)
     accum_time = 0
     curr_fps = 0
     fps = "FPS: ??"
     prev_time = timer()
+    count = 0
     while True:
         return_value, frame = vid.read()
+
+        if not return_value:
+            break
+
+        # print('frame: ', frame)
         image = Image.fromarray(frame)
         image = yolo.detect_image(image)
         result = np.asarray(image)
@@ -207,14 +215,27 @@ def detect_video(yolo, video_path, output_path=""):
         curr_fps = curr_fps + 1
         if accum_time > 1:
             accum_time = accum_time - 1
-            fps = "FPS: " + str(curr_fps)
+            # fps = "FPS: " + str(curr_fps)
+            fps = ''
             curr_fps = 0
         cv2.putText(result, text=fps, org=(3, 15), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                     fontScale=0.50, color=(255, 0, 0), thickness=2)
+        # cv2.putText(result, org=(3, 15), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+        #             fontScale=0.50, color=(255, 0, 0), thickness=2)
         cv2.namedWindow("result", cv2.WINDOW_NORMAL)
         cv2.imshow("result", result)
-        if isOutput:
-            out.write(result)
+
+        count += 1
+        print('count: ', count)
+        # cv2.imwrite("test_data/output/result_%d.jpg" % count, result)
+        cv2.imwrite(out_image_folder+"/result_%d.jpg" % count, result)
+
+        # if isOutput:
+        #     out.write(result)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
     yolo.close_session()
+
+# test
+# cv2.imwrite("frame_1.jpg", frame)

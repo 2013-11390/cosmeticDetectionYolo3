@@ -10,7 +10,6 @@ def floor(number):
 	return number-number%10
 
 def compare_color(img1, img2):
-	histo_param = 60
 	a=get_color(img1)
 	b=get_color(img2, convert = True)
 	a1=sRGBColor(a[0],a[1],a[2])
@@ -52,19 +51,16 @@ def get_color(image, convert = False):
 	i = 0
 	c = [0,0,0]
 	for (count, color) in colors:
-		if (abs(color[0]-color[1])>20 and
-			# abs(color[1]-color[2])>20 and
-			abs(color[2]-color[0])>20):
-			i = i + count
-			for a in range(count):
-				if convert:
-					c[2] += color[0]
-					c[1] += color[1]
-					c[0] += color[2]
-				else:
-					c[0] += color[0]
-					c[1] += color[1]
-					c[2] += color[2]
+		i = i + count
+		for a in range(count):
+			if convert:
+				c[2] += color[0]
+				c[1] += color[1]
+				c[0] += color[2]
+			else:
+				c[0] += color[0]
+				c[1] += color[1]
+				c[2] += color[2]
 	if i != 0 :
 		c[0] = c[0] // i
 		c[1] = c[1] // i
