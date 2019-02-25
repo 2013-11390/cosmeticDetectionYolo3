@@ -12,7 +12,7 @@ from keras.callbacks import TensorBoard, ModelCheckpoint, ReduceLROnPlateau, Ear
 from yolo3.model import preprocess_true_boxes, yolo_body, tiny_yolo_body, yolo_loss
 from yolo3.utils import get_random_data
 
-#from keras.utils import plot_model  # plot model
+# from keras.utils import plot_model  # plot model
 
 import argparse
 
@@ -40,7 +40,7 @@ def _main(annotation_path, classes_path, output_model_path):
 
     print(model.input)
     print(model.output)
-    # plot_model(model, to_file='model_data/retrained_model.png', show_shapes = True)
+#    plot_model(model, to_file='model_data/retrained_model.png', show_shapes = True)
 
     logging = TensorBoard(log_dir=log_dir)
     checkpoint = ModelCheckpoint(log_dir + 'ep{epoch:03d}-loss{loss:.3f}-val_loss{val_loss:.3f}.h5',
@@ -115,7 +115,6 @@ def _main(annotation_path, classes_path, output_model_path):
 
     # save the derived model for detection(using yolo_video.py)
     derived_model = Model(model.input[0], [model.layers[249].output, model.layers[250].output, model.layers[251].output])
-    # plot_model(derived_model, to_file=output_model_path[:-3]+'.png', show_shapes = True)
     derived_model.save(output_model_path)
 
 
