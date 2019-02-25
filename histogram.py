@@ -38,10 +38,25 @@ def compare_color(img1, img2):
 	# else:
 	# 	return False
 	
+	# If use cosine similarity instead of CIE algorithm
+	# cosine_similar(a,b)
+
 	if delta_e < 30:
 		return True
 	else:
 		return False
+
+def cosine_similar(color1, color2):
+    similarity_param = 0.9
+    c1 = list(color1)
+	c2 = list(color2)
+    similarity = ((c1[0]*c2[0]) + (c1[1]*c2[1]) + (c1[2]*c2[2])) / (math.sqrt(c1[0]*c1[0] + c1[1]*c1[1] + c1[2]*c1[2]) * math.sqrt(c2[0]*c2[0] + c2[1]*c2[1] + c2[2]*c2[2]))
+    print("cosin_similarity : ", similarity)
+
+    if similarity > similarity_param:
+        return True
+    else :
+        return False
 
 
 # get the dominant color and show it
