@@ -3,7 +3,7 @@ from PIL import Image
 import math
 import numpy as np
 from colormath.color_objects import LabColor, sRGBColor
-from colormath.color_diff import delta_e_cie1976
+from colormath.color_diff import delta_e_cie2000
 from colormath.color_conversions import convert_color
 
 def floor(number):
@@ -17,7 +17,7 @@ def compare_color(img1, img2):
 	b1=sRGBColor(b[0],b[1],b[2])
 	color1 = convert_color(a1, LabColor)
 	color2 = convert_color(b1, LabColor)
-	delta_e = delta_e_cie1976(color1, color2)
+	delta_e = delta_e_cie2000(color1, color2)
 	print("delta_e: ", delta_e)
 
 	# temp1 = []
@@ -38,7 +38,7 @@ def compare_color(img1, img2):
 	# else:
 	# 	return False
 	
-	if delta_e < 2600:
+	if delta_e < 30:
 		return True
 	else:
 		return False
