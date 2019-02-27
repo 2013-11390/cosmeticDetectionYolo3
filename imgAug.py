@@ -88,7 +88,7 @@ for i in range(0, 100):
 
     # save augmented data
     cv2.imwrite('imagesAug/afterAug'+str(i)+'.jpg', image_after)
-    outputData = outputData + 'imagesAug/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",0\n"
+    outputData = outputData + 'imagesAug/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",39\n"
 
 # write annotation of data to 'train.txt'
 f = open("train.txt", 'w')
