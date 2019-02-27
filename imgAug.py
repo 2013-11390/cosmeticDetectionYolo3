@@ -7,12 +7,14 @@ from imgaug import parameters as iap
 from files import *
 import random
 
-image = cv2.imread('images/original.jpg')
+# get test data
+# you can replace 'image.jpg' to your own data
+image = cv2.imread('test/image.jpg')
 outputData = ""
-x1 = 67
-y1 = 13
-x2 = 219
-y2 = 534
+x1 = 0
+y1 = 0
+x2 = image.size[1]-1
+y2 = image.size[0]-1
 height, width = image.shape[:2]
 
 for i in range(0, 100):
@@ -88,10 +90,11 @@ for i in range(0, 100):
     image_after = bbs_aug.draw_on_image(image_aug2, thickness=20, color=[0, 0, 255])
 
 
+    # save augmented data
+    cv2.imwrite('test/augmented/afterAug'+str(i)+'.jpg', image_after)
+    outputData = outputData + 'test/augmented/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",0\n"
 
-    cv2.imwrite('images/afterAug'+str(i)+'.jpg', image_after)
-    outputData = outputData + 'images/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",0\n"
-
+# write annotation of data to 'train.txt'
 f = open("train.txt", 'w')
 f.write(outputData)
 f.close()
