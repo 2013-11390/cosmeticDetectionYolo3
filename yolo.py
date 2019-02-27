@@ -144,11 +144,7 @@ class YOLO(object):
             origin = Image.open('images/image.jpg')
             vector1 = image_parse(10, origin)
             vector2 = image_parse(10, cropped_img)
-<<<<<<< HEAD
-            if compare_color(origin, cropped_img) or cosine_compare(vector1, vector2, 10):
-=======
             if predicted_class == 'bottle' and (compare_color(origin, cropped_img) or cosine_compare(vector1, vector2, 10)):
->>>>>>> 0897fb953c14a5e9ec1a1d2b5cb46bded673a15c
                 label = '{} {:.2f}'.format(predicted_class, score)
                 draw = ImageDraw.Draw(image)
                 label_size = draw.textsize(label, font)
