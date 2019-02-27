@@ -7,13 +7,14 @@ from colormath.color_diff import delta_e_cie2000
 from colormath.color_conversions import convert_color
 
 def dot(vector1, vector2, crop_param):
+    vector_sum = 0
     for i in range(0, crop_param):
         for j in range(0, crop_param):
-            vector_sum = vector1[i][j][0] * vector2[i][j][0] + vector1[i][j][1] * vector2[i][j][1] + vector2[i][j][2] * vector2[i][j][2]
+            vector_sum += vector1[i][j][0] * vector2[i][j][0] + vector1[i][j][1] * vector2[i][j][1] + vector2[i][j][2] * vector2[i][j][2]
     return vector_sum
 
 def cosine_compare(vector1, vector2, crop_param): #changed
-    similarity_param = 0.8
+    similarity_param = 0.85
     dot_product = dot(vector1, vector2, crop_param)
     vector1_scale = math.sqrt(dot(vector1, vector1, crop_param))
     vector2_scale = math.sqrt(dot(vector2, vector2, crop_param))
@@ -41,6 +42,7 @@ def image_parse(crop_param, img):
             vector[i][j][0] = rgb_crop_image[0]
             vector[i][j][1] = rgb_crop_image[1]
             vector[i][j][2] = rgb_crop_image[2]
+    #print("vector.shape: ", vector.shape)
     return vector
 
 def compare_color(img1, img2):
@@ -53,7 +55,7 @@ def compare_color(img1, img2):
 	delta_e = delta_e_cie2000(color1, color2)
 	#print("delta_e: ", delta_e)
 
-	if delta_e < 80:
+	if delta_e < 30:
 		return True
 	else:
 		return False

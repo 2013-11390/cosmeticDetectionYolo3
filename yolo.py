@@ -139,12 +139,12 @@ class YOLO(object):
 
             # crop image
             top, left, bottom, right = box
-            area = (left, top, right - left, bottom - top)
+            area = (left, top, right, bottom)
             cropped_img = image.crop(area)
             origin = Image.open('images/image.jpg')
             vector1 = image_parse(10, origin)
             vector2 = image_parse(10, cropped_img)
-            if (compare_color(origin, cropped_img) or cosine_compare(vector1, vector2, 10)):
+            if compare_color(origin, cropped_img) or cosine_compare(vector1, vector2, 10):
                 label = '{} {:.2f}'.format(predicted_class, score)
                 draw = ImageDraw.Draw(image)
                 label_size = draw.textsize(label, font)
