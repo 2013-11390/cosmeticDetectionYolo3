@@ -13,7 +13,7 @@ def dot(vector1, vector2, crop_param):
     return vector_sum
 
 def cosine_compare(vector1, vector2, crop_param): #changed
-    similarity_param = 0.9
+    similarity_param = 0.8
     dot_product = dot(vector1, vector2, crop_param)
     vector1_scale = math.sqrt(dot(vector1, vector1, crop_param))
     vector2_scale = math.sqrt(dot(vector2, vector2, crop_param))
