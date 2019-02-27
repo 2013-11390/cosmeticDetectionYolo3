@@ -139,7 +139,7 @@ class YOLO(object):
 
             # crop image
             top, left, bottom, right = box
-            area = (left, top, right - left, bottom - top)
+            area = (left, top, right, bottom)
             cropped_img = image.crop(area)
             origin = Image.open('images/image.jpg')
             vector1 = image_parse(10, origin)

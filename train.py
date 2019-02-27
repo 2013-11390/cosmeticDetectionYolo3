@@ -35,7 +35,7 @@ def _main(annotation_path, classes_path, output_model_path):
             freeze_body=2, weights_path='model_data/tiny_yolo_weights.h5')
     else:
         model = create_model(input_shape, anchors, num_classes,
-            freeze_body=2, weights_path='model_data/yolo_weights.h5') # make sure you know what you freeze
+            freeze_body=2, weights_path='model_data/yolo.h5') # make sure you know what you freeze
     # model.save('yolo_model_retrain.h5')  # creates a HDF5 file 'my_model.h5'
 
     print(model.input)
@@ -65,7 +65,7 @@ def _main(annotation_path, classes_path, output_model_path):
         #     # use custom yolo_loss Lambda layer.
         #     'yolo_loss': lambda y_true, y_pred: y_pred})
 
-        model.compile(optimizer=Adam(lr=1e-3), loss='mean_squared_error')
+        model.compile(optimizer=Adam(lr=1e-4), loss='mean_squared_error')
 
         batch_size = 32
         print('Train on {} samples, val on {} samples, with batch size {}.'.format(num_train, num_val, batch_size))
@@ -73,7 +73,7 @@ def _main(annotation_path, classes_path, output_model_path):
                 steps_per_epoch=max(1, num_train//batch_size),
                 validation_data=data_generator_wrapper(lines[num_train:], batch_size, input_shape, anchors, num_classes),
                 validation_steps=max(1, num_val//batch_size),
-                epochs=50,
+                epochs=10,
                 initial_epoch=0,
                 callbacks=[logging, checkpoint])
         # model.save_weights(log_dir + 'trained_weights_stage_1.h5')
@@ -93,8 +93,8 @@ def _main(annotation_path, classes_path, output_model_path):
             steps_per_epoch=max(1, num_train//batch_size),
             validation_data=data_generator_wrapper(lines[num_train:], batch_size, input_shape, anchors, num_classes),
             validation_steps=max(1, num_val//batch_size),
-            epochs=1000,
-            initial_epoch=500,
+            epochs=5,
+            initial_epoch=10,
             callbacks=[logging, checkpoint, reduce_lr, early_stopping])
         # model.save_weights(log_dir + 'trained_weights_final.h5')
         # model.save(log_dir + 'trained_model_final.h5')
@@ -134,7 +134,7 @@ def get_anchors(anchors_path):
 
 
 def create_model(input_shape, anchors, num_classes, load_pretrained=True, freeze_body=2,
-            weights_path='model_data/yolo_weights.h5'):
+            weights_path='model_data/yolo.h5'):
     '''create the training model'''
     K.clear_session() # get a new session
     image_input = Input(shape=(None, None, 3))

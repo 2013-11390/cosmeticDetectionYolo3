@@ -91,6 +91,6 @@ for i in range(0, 100):
     outputData = outputData + 'imagesAug/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",39\n"
 
 # write annotation of data to 'train.txt'
-f = open("train.txt", 'w')
+f = open("imagesAug/train.txt", 'w')
 f.write(outputData)
 f.close()

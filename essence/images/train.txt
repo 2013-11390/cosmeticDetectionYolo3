@@ -13,6 +13,7 @@ images/cos(12).jpg 142,33,259,358,0
 images/cos(13).jpg 147,32,245,338,0
 images/cos(14).jpg 76,170,217,519,0 173,115,295,519,0 279,184,422,513,0 398,204,559,520,0
 images/cos(15).jpg 229,81,489,721,0
+images/cos(16).jpg
 images/cos(17).jpg 147,29,255,363,0
 images/cos(18).jpg 309,82,491,790,0
 images/cos(19).jpg 102,30,190,372,0
@@ -56,6 +57,7 @@ images/cos(56).jpg 137,116,239,471,0 252,39,372,468,0
 images/cos(57).jpg 85,34,237,474,0 254,33,405,474,0
 images/cos(58).jpg 163,53,339,472,0
 images/cos(59).jpg 57,19,154,341,0 213,31,316,338,0
+images/cos(60).jpg
 images/cos(61).jpg 99,37,214,396,0
 images/cos(62).jpg 386,628,593,1268,0
 images/cos(63).jpg 210,33,365,560,0
@@ -66,7 +68,9 @@ images/cos(67).jpg 4,55,97,281,0 104,53,198,278,0 204,15,287,277,0 296,67,384,28
 images/cos(68).jpg 44,166,153,543,0 162,298,232,541,0 231,298,301,543,0
 images/cos(69).jpg 1004,158,1382,1013,0 451,233,825,1002,0
 images/cos(70).jpg 43,16,207,523,0
+images/cos(71).jpg
 images/cos(72).jpg 396,359,578,810,0
+images/cos(73).jpg
 images/cos(74).jpg 204,70,349,485,0
 images/cos(75).jpg 143,9,259,393,0
 images/cos(76).jpg 346,91,517,496,0
@@ -111,6 +115,7 @@ images/cos(114).jpg 49,41,174,387,0
 images/cos(115).jpg 154,25,242,376,0
 images/cos(116).jpg 144,9,259,389,0
 images/cos(117).jpg 148,53,252,318,0
+images/cos(118).jpg
 images/cos(119).jpg 75,29,184,333,0
 images/cos(120).jpg 85,91,200,377,0 207,85,305,384,0
 images/cos(121).jpg 100,58,221,366,0

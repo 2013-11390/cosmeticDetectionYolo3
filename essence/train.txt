@@ -1,22 +1,273 @@
-1.jpg 78,60,116,179,0
-2.jpg 11,5,180,379,0
-3.jpg 180,64,324,485,0
-4.jpg 51,9,169,298,0 155,115,260,264,0
-5.jpg 117,167,238,510,0
-6.jpg 31,4,217,159,0
-7.jpg 31,13,72,139,0 72,55,108,135,0
-8.jpg 33,10,97,177,0
-9.jpg 35,81,99,236,0
-10.jpg 227,408,386,968,0 387,409,555,971,0
-11.jpg 155,50,299,498,0
-12.jpg 131,59,272,470,0 288,108,418,521,0
-13.jpg 4,5,77,236,0
-14.jpg 136,35,205,151,0 31,24,81,140,0 2,71,52,190,0
-15.jpg 519,108,669,600,0
-16.jpg 148,174,318,535,0
-17.jpg 712,52,890,676,0
-18.jpg 23,6,276,245,0
-19.jpg 106,91,177,189,0
-20.jpg 97,87,151,274,0
-21.jpg 140,242,213,436,0
-22.jpg 61,93,138,220,0 10,75,65,203,0
+essence/images/1.jpg 78,60,116,179,0
+essence/images/2.jpg 11,5,180,379,0
+essence/images/3.jpg 180,64,324,485,0
+essence/images/4.jpg 51,9,169,298,0 155,115,260,264,0
+essence/images/5.jpg 117,167,238,510,0
+essence/images/6.jpg 31,4,217,159,0
+essence/images/7.jpg 31,13,72,139,0 72,55,108,135,0
+essence/images/8.jpg 33,10,97,177,0
+essence/images/9.jpg 35,81,99,236,0
+essence/images/10.jpg 227,408,386,968,0 387,409,555,971,0
+essence/images/11.jpg 155,50,299,498,0
+essence/images/12.jpg 131,59,272,470,0 288,108,418,521,0
+essence/images/13.jpg 4,5,77,236,0
+essence/images/14.jpg 136,35,205,151,0 31,24,81,140,0 2,71,52,190,0
+essence/images/15.jpg 519,108,669,600,0
+essence/images/16.jpg 148,174,318,535,0
+essence/images/17.jpg 712,52,890,676,0
+essence/images/18.jpg 23,6,276,245,0
+essence/images/20.jpg 97,87,151,274,0
+essence/images/21.jpg 140,242,213,436,0
+essence/images/22.jpg 61,93,138,220,0 10,75,65,203,0
+essence/images/24.JPG 1,1,683,538,0
+essence/images/25.JPG 142,3,795,558,0
+essence/images/26.jpg 143,43,263,367,0
+essence/images/27.jpg 230,38,454,512,0
+essence/images/28.jpg 251,45,341,357,0
+essence/images/31.jpg 214,22,475,474,0
+essence/images/32.jpg 324,25,513,442,0
+essence/images/35.png 313,94,702,571,0
+essence/images/36.jpg 73,234,637,381,0
+essence/images/37.jpg 84,79,632,400,0
+essence/images/39.jpg 286,41,521,396,0
+essence/images/40.jpg 107,21,580,444,0
+essence/images/41.jpg 126,49,494,588,0 554,74,789,571,0
+essence/images/42.jpg 153,150,325,704,0
+essence/images/43.jpg 61,88,523,510,0
+essence/images/44.JPG 367,2,1330,996,0
+essence/images/45.jpg 532,55,742,691,0
+essence/images/46.jpg 332,49,473,357,0
+essence/images/50.jpg 194,356,442,587,0
+essence/images/51.JPG 301,44,404,294,0
+essence/images/52.jpg 2479,791,2813,1768,0
+essence/images/55.JPG 139,248,355,508,0
+essence/images/56.jpg 194,671,355,1090,0
+essence/images/57.jpg 191,62,224,140,0
+essence/images/58.jpg 174,135,337,591,0
+essence/images/59.jpg 85,111,134,216,0
+essence/images/60.png 216,1245,482,1973,0
+essence/images/61.jpg 338,112,453,338,0
+essence/images/Notebook0.jpg 542,120,726,565,0
+essence/images/Notebook3.jpg 731,242,873,614,0
+essence/images/Notebook5.jpg 696,150,828,508,0
+essence/images/Notebook6.jpg 79,279,203,623,0
+essence/images/Notebook7.jpg 524,449,682,986,0
+essence/images/Notebook8.jpg 149,365,443,929,0
+essence/images/Notebook9.jpg 89,445,204,782,0
+essence/images/Notebook10.jpg 638,192,723,445,0
+essence/images/Notebook11.jpg 746,751,989,1264,0
+essence/images/Notebook12.jpg 334,209,410,347,0 71,271,202,500,0
+essence/images/Notebook13.jpg 353,162,430,334,0
+essence/images/Notebook14.jpg 338,302,461,552,0
+essence/images/Notebook17.jpg 28,184,154,531,0
+essence/images/Notebook18.jpg 132,3,192,176,0
+essence/images/Notebook21.jpg 299,433,436,758,0 387,579,567,768,0
+essence/images/Notebook22.jpg 682,105,928,934,0
+essence/images/Notebook23.jpg 322,121,423,288,0
+essence/images/Notebook24.jpg 71,3,176,252,0
+essence/images/Notebook25.jpg 152,299,214,376,0
+essence/images/Notebook26.jpg 151,283,280,592,0 243,278,351,579,0
+essence/images/Notebook27.jpg 266,405,336,601,0
+essence/images/Notebook28.jpg 186,36,299,382,0 543,122,665,277,0
+essence/images/Notebook29.jpg 160,513,250,769,0
+essence/images/Notebook30.jpg 90,21,160,240,0
+essence/images/Notebook31.jpg 351,146,423,279,0 28,189,86,283,0
+essence/images/Notebook32.jpg 595,195,680,429,0
+essence/images/Notebook33.jpg 52,84,190,259,0
+essence/images/Notebook34.jpg 37,194,98,322,0
+essence/images/Notebook35.jpg 136,158,188,288,0
+essence/images/Notebook36.jpg 200,376,364,728,0
+essence/images/Notebook37.jpg 301,74,418,268,0
+essence/images/Notebook38.jpg 186,176,236,297,0
+essence/images/Notebook39.jpg 220,415,502,669,0
+essence/images/Notebook40.jpg 286,340,435,529,0
+essence/images/Notebook41.jpg 29,316,96,512,0
+essence/images/Notebook42.jpg 349,359,496,670,0
+essence/images/Notebook43.jpg 222,129,375,556,0
+essence/images/Notebook44.jpg 246,406,304,559,0
+essence/images/Notebook45.jpg 326,140,400,332,0
+essence/images/Notebook46.jpg 568,256,741,780,0
+essence/images/Notebook47.jpg 289,308,355,416,0 534,218,634,443,0
+essence/images/Notebook48.jpg 356,419,429,643,0
+essence/images/Notebook49.jpg 429,153,596,657,0
+essence/images/Notebook50.jpg 1264,365,1670,1011,0
+essence/images/Notebook51.jpg 366,155,518,336,0
+essence/images/Notebook52.jpg 213,191,339,552,0
+essence/images/Notebook53.jpg 81,171,201,387,0
+essence/images/Notebook54.jpg 63,331,188,698,0
+essence/images/Notebook55.jpg 142,187,218,341,0
+essence/images/Notebook56.jpg 970,238,1082,506,0
+essence/images/Notebook57.jpg 299,44,398,297,0
+essence/images/Notebook59.jpg 246,7,378,359,0
+essence/images/Notebook60.jpg 290,720,357,898,0
+essence/images/Notebook62.jpg 127,244,203,458,0
+essence/images/Notebook63.jpg 200,159,313,344,0
+essence/images/Notebook64.jpg 323,52,530,688,0 532,189,697,683,0
+essence/images/Notebook65.jpg 402,58,653,731,0
+essence/images/Notebook66.jpg 583,110,730,521,0
+essence/images/Notebook67.jpg 546,212,654,446,0
+essence/images/Notebook68.jpg 274,91,345,265,0
+essence/images/Notebook69.jpg 156,232,261,556,0
+essence/images/Notebook70.jpg 204,72,247,161,0
+essence/images/Notebook71.jpg 357,100,419,213,0
+essence/images/Notebook72.jpg 115,8,168,177,0 75,25,117,169,0 158,26,198,173,0
+essence/images/cos(2).jpg 142,32,256,379,0
+essence/images/cos(3).jpg 152,37,248,361,0
+essence/images/cos(3).png 194,32,309,477,0
+essence/images/cos(4).jpg 147,32,252,374,0
+essence/images/cos(5).jpg 125,19,261,373,0
+essence/images/cos(6).png 116,21,169,239,0
+essence/images/cos(7).jpg 159,99,241,359,0
+essence/images/cos(8).jpg 131,41,268,360,0
+essence/images/cos(9).jpg 145,27,250,380,0
+essence/images/cos(10).jpg 147,42,249,386,0
+essence/images/cos(11).jpg 160,53,233,343,0
+essence/images/cos(12).jpg 142,33,259,358,0
+essence/images/cos(13).jpg 147,32,245,338,0
+essence/images/cos(14).jpg 76,170,217,519,0 173,115,295,519,0 279,184,422,513,0 398,204,559,520,0
+essence/images/cos(15).jpg 229,81,489,721,0
+essence/images/cos(16).jpg
+essence/images/cos(17).jpg 147,29,255,363,0
+essence/images/cos(18).jpg 309,82,491,790,0
+essence/images/cos(19).jpg 102,30,190,372,0
+essence/images/cos(20).jpg 73,58,165,294,0 74,452,160,697,0 320,22,396,306,0 592,36,685,319,0 550,477,629,695,0
+essence/images/cos(21).jpg 186,73,316,477,0
+essence/images/cos(22).JPG 236,14,360,436,0
+essence/images/cos(23).jpg 78,17,206,384,0
+essence/images/cos(24).jpg 50,15,157,275,0 145,25,245,271,0
+essence/images/cos(25).jpg 184,86,312,455,0
+essence/images/cos(26).jpg 184,18,355,516,0
+essence/images/cos(27).jpg 165,252,299,593,0
+essence/images/cos(28).JPG 434,140,522,429,0 501,75,606,445,0 590,139,673,430,0
+essence/images/cos(29).jpg 176,6,306,498,0
+essence/images/cos(30).jpg 780,129,1034,736,0
+essence/images/cos(31).jpg 559,270,734,777,0
+essence/images/cos(32).jpg 570,84,747,755,0
+essence/images/cos(33).jpg 519,81,877,1319,0
+essence/images/cos(34).jpg 181,29,317,471,0
+essence/images/cos(35).jpg 506,81,894,1314,0
+essence/images/cos(36).jpg 161,61,288,388,0
+essence/images/cos(37).jpg 65,40,135,163,0
+essence/images/cos(38).jpg 61,18,136,239,0 144,16,220,237,0
+essence/images/cos(39).jpg 393,135,610,922,0
+essence/images/cos(40).jpg 241,98,357,505,0
+essence/images/cos(41).jpg 54,45,122,232,0 142,45,201,231,0
+essence/images/cos(42).jpg 110,23,189,274,0
+essence/images/cos(43).jpg 128,105,242,271,0 415,88,488,261,0 244,173,334,411,0 9,261,101,412,0 589,186,675,413,0
+essence/images/cos(44).jpg 53,0,108,175,0
+essence/images/cos(45).jpg 70,215,170,497,0 163,287,230,477,0 14,285,75,474,0
+essence/images/cos(46).jpg 162,43,337,468,0
+essence/images/cos(47).jpg 175,24,349,488,0
+essence/images/cos(48).jpg 208,81,350,505,0
+essence/images/cos(49).jpg 113,33,246,464,0
+essence/images/cos(50).jpg 220,83,418,763,0
+essence/images/cos(51).jpg 140,43,249,354,0
+essence/images/cos(52).jpg 141,29,245,354,0
+essence/images/cos(53).jpg 163,29,359,719,0 384,26,574,715,0
+essence/images/cos(54).jpg 20,32,282,726,0 305,30,559,722,0 581,371,708,724,0
+essence/images/cos(55).jpg 380,149,918,1618,0
+essence/images/cos(56).jpg 137,116,239,471,0 252,39,372,468,0
+essence/images/cos(57).jpg 85,34,237,474,0 254,33,405,474,0
+essence/images/cos(58).jpg 163,53,339,472,0
+essence/images/cos(59).jpg 57,19,154,341,0 213,31,316,338,0
+essence/images/cos(61).jpg 99,37,214,396,0
+essence/images/cos(62).jpg 386,628,593,1268,0
+essence/images/cos(63).jpg 210,33,365,560,0
+essence/images/cos(64).jpg 196,64,316,450,0
+essence/images/cos(65).jpg 156,6,322,463,0 372,10,520,464,0
+essence/images/cos(66).jpg 168,35,286,425,0
+essence/images/cos(67).jpg 4,55,97,281,0 104,53,198,278,0 204,15,287,277,0 296,67,384,283,0 396,97,489,277,0
+essence/images/cos(68).jpg 44,166,153,543,0 162,298,232,541,0 231,298,301,543,0
+essence/images/cos(69).jpg 1004,158,1382,1013,0 451,233,825,1002,0
+essence/images/cos(70).jpg 43,16,207,523,0
+essence/images/cos(72).jpg 396,359,578,810,0
+essence/images/cos(74).jpg 204,70,349,485,0
+essence/images/cos(75).jpg 143,9,259,393,0
+essence/images/cos(76).jpg 346,91,517,496,0
+essence/images/cos(77).jpg 257,67,400,406,0
+essence/images/cos(78).jpg 322,206,389,442,0 538,204,612,436,0 78,158,183,437,0
+essence/images/cos(79).jpg 98,277,159,437,0 304,174,401,432,0 531,206,623,435,0
+essence/images/cos(80).jpg 250,36,434,663,0
+essence/images/cos(81).jpg 175,42,277,424,0
+essence/images/cos(82).jpg 158,76,287,376,0
+essence/images/cos(83).jpg 117,11,233,382,0
+essence/images/cos(84).jpg 104,23,230,361,0
+essence/images/cos(85).jpg 184,126,305,506,0
+essence/images/cos(86).jpg 197,94,349,514,0
+essence/images/cos(87).jpg 396,419,582,853,0
+essence/images/cos(88).jpg 140,47,232,254,0
+essence/images/cos(89).jpg 200,98,382,784,0 401,462,739,752,0
+essence/images/cos(90).jpg 58,62,181,474,0 222,68,337,472,0 376,66,474,476,0 518,64,658,476,0
+essence/images/cos(91).jpg 22,74,208,460,0 231,68,337,461,0 376,69,490,466,0 527,69,668,457,0
+essence/images/cos(92).jpg 140,58,216,305,0
+essence/images/cos(93).jpg 2,0,103,397,0 105,65,200,398,0
+essence/images/cos(94).jpg 154,44,252,354,0
+essence/images/cos(95).jpg 153,53,248,351,0
+essence/images/cos(96).jpg 145,14,262,386,0
+essence/images/cos(97).jpg 209,34,306,361,0
+essence/images/cos(98).jpg 90,221,190,355,0 205,116,298,361,0
+essence/images/cos(99).jpg 148,22,257,368,0
+essence/images/cos(100).jpg 155,34,250,373,0
+essence/images/cos(101).jpg 156,60,246,352,0
+essence/images/cos(102).jpg 168,70,234,326,0
+essence/images/cos(103).jpg 151,34,253,380,0
+essence/images/cos(104).jpg 156,27,253,377,0
+essence/images/cos(105).jpg 158,52,238,384,0
+essence/images/cos(106).jpg 146,35,255,382,0
+essence/images/cos(107).jpg 146,35,254,370,0
+essence/images/cos(108).jpg 143,38,253,360,0
+essence/images/cos(109).jpg 157,7,242,394,0
+essence/images/cos(110).jpg 149,13,250,393,0
+essence/images/cos(111).jpg 88,14,197,384,0
+essence/images/cos(112).jpg 148,29,248,360,0
+essence/images/cos(113).jpg 54,44,164,376,0
+essence/images/cos(114).jpg 49,41,174,387,0
+essence/images/cos(115).jpg 154,25,242,376,0
+essence/images/cos(116).jpg 144,9,259,389,0
+essence/images/cos(117).jpg 148,53,252,318,0
+essence/images/cos(119).jpg 75,29,184,333,0
+essence/images/cos(120).jpg 85,91,200,377,0 207,85,305,384,0
+essence/images/cos(121).jpg 100,58,221,366,0
+essence/images/cos(122).jpg 149,38,250,364,0
+essence/images/cos(123).jpg 93,38,195,371,0
+essence/images/cos(124).jpg 243,17,417,399,0
+essence/images/cos(125).jpg 115,30,296,384,0
+essence/images/cos(126).jpg 154,15,258,363,0
+essence/images/cos(127).jpg 91,28,196,381,0
+essence/images/cos(128).jpg 80,36,187,367,0
+essence/images/cos(129).jpg 149,29,248,372,0
+essence/images/cos(130).jpg 164,83,243,332,0
+essence/images/cos(131).jpg 129,12,265,385,0
+essence/images/cos(132).jpg 262,32,274,54,0
+essence/images/cos(133).jpg 52,89,114,346,0 132,93,192,345,0 212,90,266,349,0 286,93,344,349,0
+essence/images/cos(134).jpg 161,44,241,374,0
+essence/images/cos(135).jpg 119,44,200,313,0
+essence/images/cos(136).jpg 152,24,250,383,0
+essence/images/cos(137).jpg 244,22,352,387,0
+essence/images/cos(138).jpg 126,23,233,381,0
+essence/images/cos(139).jpg 169,45,247,378,0 263,70,356,375,0
+essence/images/cos(140).jpg 145,27,260,374,0
+essence/images/cos(141).jpg 151,35,254,371,0
+essence/images/cos(142).jpg 87,44,200,387,0
+essence/images/cos(143).jpg 137,15,249,391,0
+essence/images/cos(144).jpg 149,98,221,353,0
+essence/images/cos(145).jpg 164,81,254,396,0
+essence/images/cos(146).jpg 148,59,254,353,0
+essence/images/cos(147).jpg 135,43,265,377,0
+essence/images/cos(148).jpg 89,50,202,347,0
+essence/images/cos(149).jpg 150,41,252,372,0
+essence/images/cos(150).jpg 88,293,240,833,0 283,299,434,829,0 468,346,601,830,0 651,349,787,827,0
+essence/images/cos(151).jpg 150,73,248,384,0
+essence/images/cos(152).jpg 140,15,252,394,0
+essence/images/cos(153).jpg 149,34,253,370,0
+essence/images/cos(154).jpg 200,96,284,314,0
+essence/images/cos(155).jpg 102,30,295,374,0
+essence/images/cos(156).jpg 147,32,249,385,0
+essence/images/cos(157).jpg 148,58,248,349,0
+essence/images/cos(158).jpg 136,30,256,369,0
+essence/images/cos(159).jpg 48,38,163,374,0
+essence/images/cos(160).jpg 138,52,257,337,0
+essence/images/cos(161).jpg 201,33,297,381,0
+essence/images/cos(162).jpg 119,6,219,364,0
+essence/images/cos(163).jpg 27,20,132,389,0
+essence/images/cos(164).jpg 88,28,189,391,0 178,26,294,380,0
