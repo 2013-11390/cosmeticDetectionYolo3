@@ -1,15 +1,15 @@
-# keras-yolo3
+# CosmeticDetectionYolo3
 
 ## Introduction
 
-A keras implementation of YOLOv3 (Tensorflow backend) for raccoon detection (ref: [qqwweee/keras-yolo3](https://github.com/qqwweee/keras-yolo3))
+A Cosmetic detector using YOLOv3 (Tensorflow backend) for cosmetic detection (ref: [qqwweee/keras-yolo3](https://github.com/qqwweee/keras-yolo3))
 
 
-## Raccoon dataset
+## Test data
 
-Raccoon dataset is avaiable here: [Raccoon dataset](https://github.com/bing0037/Raccoon_dataset) (modified from [experiencor/raccoon_dataset](https://github.com/experiencor/raccoon_dataset))
+Test data is under 'test/'
 
-![Raccoon](pictures/raccoon-28.jpg)
+![Cosmetic](pictures/image.jpg)
 
 ## How to use:
 
@@ -17,7 +17,7 @@ Raccoon dataset is avaiable here: [Raccoon dataset](https://github.com/bing0037/
 
 Step 1: Download the project:
 ```
-git clone https://github.com/bing0037/keras-yolo3.git
+git clone https://github.com/2013-11390/cosmeticDetectionYolo3.git
 ```
 
 Step 2: Download YOLOv3 weights from [YOLO website](http://pjreddie.com/darknet/yolo/) or [yolov3.weights](https://drive.google.com/uc?id=1owAyOwfpwxpbs0BLWPkwT0srRUTpFHIn&export=download).
@@ -37,10 +37,10 @@ python yolo_video.py --model_path model_data/yolo.h5 --classes_path model_data/c
 
 ![Raccoon](pictures/coco_1.png)
 
-### 3) Retrain the model for raccoon detection:
-Step 1: Download Raccoon dataset to root directory
+### 3) Train the model for cosmetic detection:
+Step 1: Augment test data
 ```
-git clone https://github.com/bing0037/Raccoon_dataset.git
+python imgAug.py
 ```
 Step 2: Parse annotation:
 ```
@@ -48,7 +48,7 @@ python raccoon_annotation.py
 ```
 Step 3: Download YOLOv3 weights from [yolo_weights](https://drive.google.com/uc?export=download&confirm=-b_7&id=1HlydiovCtnUJabQvZIbx77v6sE4OXrac) to *model_data/* directory
 
-Step 4: Retrain the model(use yolo.h5 as the pretrained model) 
+Step 4: Train the model(use yolo.h5 as the pretrained model) 
 ```
 python train.py -a Raccoon_dataset/raccoon_train_data.txt -c Raccoon_dataset/raccoon_classes.txt -o model_data/raccoon_derived_model.h5
 ```
@@ -60,33 +60,8 @@ Step 5: Run the model
 python yolo_video.py --image
 ```
 
-### 4) pedestrian detection: training dataset: [Robust Multi-Person Tracking from Mobile Platforms](https://data.vision.ee.ethz.ch/cvl/aess/dataset/)
+## Cosmetic detection result
 
-More training data is needed to improve the accuracy!
+![Cosmetic](pictures/result1.jpg)
 
-Step1: training or download the model directly [pedestrian_detection_model.h5](https://drive.google.com/file/d/1scu2PQeEnTvvIIZw9IYZHaVLFMhnbHqm/view?usp=sharing):
-```
-python train.py -a test_data/training_data/annotation.txt -c test_data/training_data/pedestrian_classes.txt -o model_data/pedestrian_detection_model.h5
-```
-Step2: running:
-```
-python yolo_video.py --model_path model_data/pedestrian_detection_model.h5 --classes_path test_data/training_data/pedestrian_classes.txt
-```
-
-Pedestrian detection result: [Yotube](https://youtu.be/yxeetjk22K0)
-
-## Raccoon detection result
-
-![Raccoon](pictures/raccoon_detection_1.png)
-
-![Raccoon](pictures/raccoon_detection_2.png)
-
-
-## Some issues
-
-1. The test environment is
-    - Python 3.5.5
-    - Keras 2.2.0
-    - tensorflow 1.6.0
-
-2. The model for raccoon detection was trained using ONLY CPU, so the accuracy is not very high. If you want to achieve a better performance, you can use GPUs for training.
+![Cosmetic](pictures/result2.jpg)
