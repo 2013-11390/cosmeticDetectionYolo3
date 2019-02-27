@@ -7,13 +7,17 @@ A Cosmetic detector using YOLOv3 (Tensorflow backend) for cosmetic detection (re
 ## Requirement
 
 ### Environment
-Python-3.6.8
+Python 3.6.8
 
-CUDA-9.0
+Keras 2.2.4
 
-cudnn-7.0
+Tensorflow 1.6.0
 
-opencv-3.4.0
+CUDA 9.0
+
+cudnn 7.0
+
+opencv 3.4.0
 
 ### Libraries
 colormath
