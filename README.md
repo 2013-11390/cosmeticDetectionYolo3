@@ -4,10 +4,33 @@
 
 A Cosmetic detector using YOLOv3 (Tensorflow backend) for cosmetic detection (ref: [qqwweee/keras-yolo3](https://github.com/qqwweee/keras-yolo3))
 
+## Requirement
+
+### Environment
+Python-3.6
+
+CUDA-9.0
+
+cudnn-7.5.0
+
+### Libraries
+colormath
+
+Pillow
+
+numpy
+
+Keras
+
+opencv-python
+
+imgaug
+
+matplotlib
 
 ## Test data
 
-Test data is under 'test/'
+Test data is under 'images/'
 
 ![Cosmetic](pictures/image.jpg)
 
