@@ -78,11 +78,11 @@ python train.py -a imagesAug/train.txt -c model_data/coco_classes.txt -o model_d
 
 Step 5: Run the model
 ```
-python yolo_video.py --input 'your video name'
+python yolo_video.py --model_path model_data/custom_cosmetic_coco.h5 --classes_path model_data/coco_classes.txt --input 'your video name'
 ```
 if you want to save the result of yolo object detecting
 ```
-python yolo_video.py --input 'your video name' --output 'save file name'
+python yolo_video.py --model_path model_data/custom_cosmetic_coco.h5 --classes_path model_data/coco_classes.txt --input 'your video name' --output 'save file name'
 ```
 
 
