@@ -1,20 +1,16 @@
-from os import listdir
 import cv2
-import numpy as np
 import imgaug as ia
 from imgaug import augmenters as iaa
-from imgaug import parameters as iap
-from files import *
 import random
 
 # get test data
 # you can replace 'image.jpg' to your own data
-image = cv2.imread('test/image.jpg')
+image = cv2.imread('images/image.jpg')
 outputData = ""
 x1 = 0
 y1 = 0
-x2 = image.size[1]-1
-y2 = image.size[0]-1
+x2 = image.shape[1]-1
+y2 = image.shape[0]-1
 height, width = image.shape[:2]
 
 for i in range(0, 100):
@@ -91,8 +87,8 @@ for i in range(0, 100):
 
 
     # save augmented data
-    cv2.imwrite('test/augmented/afterAug'+str(i)+'.jpg', image_after)
-    outputData = outputData + 'test/augmented/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",0\n"
+    cv2.imwrite('imagesAug/afterAug'+str(i)+'.jpg', image_after)
+    outputData = outputData + 'imagesAug/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",0\n"
 
 # write annotation of data to 'train.txt'
 f = open("train.txt", 'w')
