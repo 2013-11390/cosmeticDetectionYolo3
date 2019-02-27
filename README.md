@@ -7,11 +7,13 @@ A Cosmetic detector using YOLOv3 (Tensorflow backend) for cosmetic detection (re
 ## Requirement
 
 ### Environment
-Python-3.6
+Python-3.6.8
 
 CUDA-9.0
 
-cudnn-7.5.0
+cudnn-7.0
+
+opencv-3.4.0
 
 ### Libraries
 colormath
@@ -61,27 +63,28 @@ python yolo_video.py --model_path model_data/yolo.h5 --classes_path model_data/c
 ![Raccoon](pictures/coco_1.png)
 
 ### 3) Train the model for cosmetic detection:
-Step 1: Augment test data
+Step 1: Put cosmetic image in images folder by name 'image.jpg'
+
+Step 2: Augment test data
 ```
 python imgAug.py
-```
-Step 2: Parse annotation:
-```
-python raccoon_annotation.py
 ```
 Step 3: Download YOLOv3 weights from [yolo_weights](https://drive.google.com/uc?export=download&confirm=-b_7&id=1HlydiovCtnUJabQvZIbx77v6sE4OXrac) to *model_data/* directory
 
 Step 4: Train the model(use yolo.h5 as the pretrained model) 
 ```
-python train.py -a Raccoon_dataset/raccoon_train_data.txt -c Raccoon_dataset/raccoon_classes.txt -o model_data/raccoon_derived_model.h5
+python train.py -a imagesAug/train.txt -c model_data/coco_classes.txt -o model_data/custom_cosmetic_coco.h5
 ```
-
-**OR** download the trained model [raccoon_derived_model.h5](https://drive.google.com/uc?export=download&confirm=6pCi&id=1mdSiioui7H8pskBCMrE08jo-0saIf-y-) to *model_data/* directory directly.
 
 Step 5: Run the model
 ```
-python yolo_video.py --image
+python yolo_video.py --input 'your video name'
 ```
+if you want to save the result of yolo object detecting
+```
+python yolo_video.py --input 'your video name' --output 'save file name'
+```
+
 
 ## Cosmetic detection result
 
