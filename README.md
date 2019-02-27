@@ -69,14 +69,13 @@ Step 2: Augment test data
 ```
 python imgAug.py
 ```
-Step 3: Download YOLOv3 weights from [yolo_weights](https://drive.google.com/uc?export=download&confirm=-b_7&id=1HlydiovCtnUJabQvZIbx77v6sE4OXrac) to *model_data/* directory
 
-Step 4: Train the model(use yolo.h5 as the pretrained model) 
+Step 3: Train the model(use yolo.h5 as the pretrained model) 
 ```
 python train.py -a imagesAug/train.txt -c model_data/coco_classes.txt -o model_data/custom_cosmetic_coco.h5
 ```
 
-Step 5: Run the model
+Step 4: Run the model
 ```
 python yolo_video.py --model_path model_data/custom_cosmetic_coco.h5 --classes_path model_data/coco_classes.txt --input 'your video name'
 ```
