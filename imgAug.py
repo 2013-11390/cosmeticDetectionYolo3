@@ -17,10 +17,10 @@ for i in range(0, 100):
     functionRand = random.randrange(0, 10)
     scaleXrand = random.uniform(0.25, 1)
     scaleYrand = random.uniform(0.25, 1)
-    transXrand = random.uniform(-0.4, 0.4)
-    transYrand = random.uniform(-0.4, 0.4)
-    rotateRand = random.randrange(-90, 90)
-    shearRand = random.randrange(-45, 45)
+    transXrand = random.uniform(-0.7, 0.7)
+    transYrand = random.uniform(-0.7, 0.7)
+    rotateRand = random.randrange(-20, 20)
+    shearRand = random.randrange(-10, 10)
 
 
     ia.seed(1)
@@ -35,7 +35,9 @@ for i in range(0, 100):
         scale=(scaleXrand, scaleYrand),
         translate_percent={"x":(0, transXrand), "y":(0, transYrand)},
         rotate=(rotateRand, 0),
-        shear=(shearRand, 0)
+        shear=(shearRand, 0),
+        mode="constant",
+        cval=255
     )
 
     chSeq_det = chSeq.to_deterministic()
@@ -46,15 +48,15 @@ for i in range(0, 100):
     seq = iaa.Affine()
     # not rotate
     if functionRand < 1:
-        seq = iaa.Superpixels(p_replace=0.5, n_segments=64)
-    elif functionRand < 2:
+    #     seq = iaa.Superpixels(p_replace=0.5, n_segments=64)
+    # elif functionRand < 2:
         seq = iaa.Sharpen(alpha=(0.0, 1.0), lightness=(0.75, 2.0))
     elif functionRand < 3:
-        seq = iaa.ContrastNormalization((0.5, 1.5), per_channel=0.5)
-    elif functionRand < 4:
-        seq = iaa.AddElementwise((-40, 40))
-    elif functionRand < 5:
-        seq = iaa.CoarseDropout(0.04, size_percent=0.5)
+    #     seq = iaa.ContrastNormalization((0.5, 1.5), per_channel=0.5)
+    # elif functionRand < 4:
+    #     seq = iaa.AddElementwise((-40, 40))
+    # elif functionRand < 5:
+        seq = iaa.CoarseDropout(0.04, size_percent=0.02)
     elif functionRand < 6:
         seq = iaa.Multiply((0.5, 1.5))
 
@@ -82,15 +84,15 @@ for i in range(0, 100):
         bbs_aug.bounding_boxes[0].y2 = int(bbs_aug.bounding_boxes[0].y2)
 
 
-    image_before = bbs_aug.draw_on_image(image, thickness=20)
-    image_after = bbs_aug.draw_on_image(image_aug2, thickness=20, color=[0, 0, 255])
+    image_before = bbs_aug.draw_on_image(image, thickness=0)
+    image_after = bbs_aug.draw_on_image(image_aug2, thickness=0, color=[0, 0, 255])
 
 
     # save augmented data
-    cv2.imwrite('imagesAug/afterAug'+str(i)+'.jpg', image_after)
-    outputData = outputData + 'imagesAug/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",39\n"
+    cv2.imwrite('imagesAugWeak/afterAug'+str(i)+'.jpg', image_after)
+    outputData = outputData + 'imagesAugWeak/afterAug'+str(i)+'.jpg' + " " + str(bbs_aug.bounding_boxes[0].x1) + "," + str(bbs_aug.bounding_boxes[0].y1) + ","+ str(bbs_aug.bounding_boxes[0].x2) + ","+ str(bbs_aug.bounding_boxes[0].y2) + ",39\n"
 
 # write annotation of data to 'train.txt'
-f = open("imagesAug/train.txt", 'w')
+f = open("imagesAugWeak/train.txt", 'w')
 f.write(outputData)
 f.close()
