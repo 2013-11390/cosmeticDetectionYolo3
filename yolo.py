@@ -12,13 +12,14 @@ from keras import backend as K
 from keras.models import load_model
 from keras.layers import Input
 from PIL import Image, ImageFont, ImageDraw
+import cv2
 
 from yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from yolo3.utils import letterbox_image
 import os
 from keras.utils import multi_gpu_model
 
-from histogram import compare_color, cosine_compare, image_parse
+from histogram import compare_color, cosine_compare, image_parse, histogram_intersection
 
 class YOLO(object):
     _defaults = {
@@ -144,7 +145,7 @@ class YOLO(object):
             origin = Image.open('images/image.jpg')
             vector1 = image_parse(10, origin)
             vector2 = image_parse(10, cropped_img)
-            if predicted_class == 'bottle' and (compare_color(origin, cropped_img) or cosine_compare(vector1, vector2, 10)):
+            if predicted_class == 'bottle' and (histogram_intersection(origin, cropped_img) and cosine_compare(vector1, vector2, 10)):
                 label = '{} {:.2f}'.format(predicted_class, score)
                 draw = ImageDraw.Draw(image)
                 label_size = draw.textsize(label, font)
