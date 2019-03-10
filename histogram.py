@@ -16,7 +16,7 @@ def dot(vector1, vector2, crop_param):
     return vector_sum
 
 def cosine_compare(vector1, vector2, crop_param): #changed
-    similarity_param = 0.75
+    similarity_param = 0.85
     dot_product = dot(vector1, vector2, crop_param)
     vector1_scale = math.sqrt(dot(vector1, vector1, crop_param))
     vector2_scale = math.sqrt(dot(vector2, vector2, crop_param))
@@ -98,7 +98,7 @@ def histogram_intersection(img1, img2):
     resized_img1 = img1.resize((256, 256))
     resized_img2 = img2.resize((256, 256))
     lab_img1 = cv2.cvtColor(np.array(resized_img1), cv2.COLOR_RGB2LAB)
-    lab_img2 = cv2.cvtColor(np.array(resized_img2), cv2.COLOR_RGB2LAB)
+    lab_img2 = cv2.cvtColor(np.array(resized_img2), cv2.COLOR_BGR2LAB)
 
     hist1 = cv2.calcHist([lab_img1], [0], None, [100], [0,100])
     hist2 = cv2.calcHist([lab_img2], [0], None, [100], [0,100])
@@ -117,7 +117,7 @@ def histogram_intersection(img1, img2):
 
     average_intersection = (intersection[0]+intersection[1]+intersection[2])/(3*256*256)
     print("average_intersection:", average_intersection)
-    if average_intersection > 0.15:
+    if average_intersection > 0.30:
         return True
     else:
         return False
