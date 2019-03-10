@@ -17,10 +17,10 @@ for i in range(0, 100):
     functionRand = random.randrange(0, 10)
     scaleXrand = random.uniform(0.25, 1)
     scaleYrand = random.uniform(0.25, 1)
-    transXrand = random.uniform(-0.7, 0.7)
-    transYrand = random.uniform(-0.7, 0.7)
-    rotateRand = random.randrange(-20, 20)
-    shearRand = random.randrange(-10, 10)
+    transXrand = random.uniform(-0.3, 0.3)
+    transYrand = random.uniform(-0.3, 0.3)
+    rotateRand = random.randrange(-10, 10)
+    shearRand = random.randrange(-5, 5)
 
 
     ia.seed(1)
@@ -56,7 +56,7 @@ for i in range(0, 100):
     # elif functionRand < 4:
     #     seq = iaa.AddElementwise((-40, 40))
     # elif functionRand < 5:
-        seq = iaa.CoarseDropout(0.04, size_percent=0.02)
+        seq = iaa.CoarseDropout(0.1, size_percent=0.01)
     elif functionRand < 6:
         seq = iaa.Multiply((0.5, 1.5))
 
