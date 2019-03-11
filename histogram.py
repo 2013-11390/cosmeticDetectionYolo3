@@ -57,7 +57,7 @@ def compare_color(img1, img2):
     delta_e = delta_e_cie2000(color1, color2)
     print("delta_e:", delta_e)
 
-    if delta_e < 85:
+    if delta_e < 80:
         return True
     else:
         return False
