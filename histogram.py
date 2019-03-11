@@ -98,7 +98,7 @@ def histogram_intersection(img1, img2):
     resized_img1 = img1.resize((256, 256))
     resized_img2 = img2.resize((256, 256))
     lab_img1 = cv2.cvtColor(np.array(resized_img1), cv2.COLOR_RGB2LAB)
-    lab_img2 = cv2.cvtColor(np.array(resized_img2), cv2.COLOR_RGB2LAB)
+    lab_img2 = cv2.cvtColor(np.array(resized_img2), cv2.COLOR_BGR2LAB)
 
     hist1 = cv2.calcHist([lab_img1], [0], None, [100], [0,100])
     hist2 = cv2.calcHist([lab_img2], [0], None, [100], [0,100])
