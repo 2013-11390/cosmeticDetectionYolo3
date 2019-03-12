@@ -121,7 +121,11 @@ def histogram_intersection(img1, img2):
 
     average_intersection = (intersection[0]+intersection[1]+intersection[2])/(3*256*256)
     print("average_intersection:", average_intersection)
+<<<<<<< HEAD
     if average_intersection > intersection_param:
+=======
+    if average_intersection > 0.30:
+>>>>>>> 6273a0db7a93d1adeda401e53e1fa9190f16352a
         return True
     else:
         return False
