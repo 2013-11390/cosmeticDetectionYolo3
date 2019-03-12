@@ -26,7 +26,7 @@ class YOLO(object):
         "model_path": 'model_data/trained_weights_stage_1.h5',
         "anchors_path": 'model_data/yolo_anchors.txt',
         "classes_path": 'model_data/coco_classes.txt',
-        "score" : 0.3,
+        "score" : 0.1,
         "iou" : 0.45,
         "model_image_size" : (416, 416),
         "gpu_num" : 1,
@@ -145,7 +145,8 @@ class YOLO(object):
             origin = Image.open('images/image.jpg')
             vector1 = image_parse(10, origin)
             vector2 = image_parse(10, cropped_img)
-            if predicted_class == 'bottle' and (histogram_intersection(origin, cropped_img) and cosine_compare(vector1, vector2, 10)):
+            # if predicted_class == 'bottle' and (compare_color(origin, cropped_img) and cosine_compare(vector1, vector2, 10)):
+            if predicted_class == 'bottle' and (histogram_intersection(origin, cropped_img) and (cosine_compare(vector1, vector2, 10) or compare_color(origin, cropped_img))):
                 label = '{} {:.2f}'.format(predicted_class, score)
                 draw = ImageDraw.Draw(image)
                 label_size = draw.textsize(label, font)

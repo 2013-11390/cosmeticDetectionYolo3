@@ -8,6 +8,10 @@ from colormath.color_conversions import convert_color
 import cv2
 from skimage.color import rgb2lab
 
+similarity_param = 0.75
+delta_e_param = 32
+intersection_param = 0.25
+
 def dot(vector1, vector2, crop_param):
     vector_sum = 0
     for i in range(0, crop_param):
@@ -16,7 +20,7 @@ def dot(vector1, vector2, crop_param):
     return vector_sum
 
 def cosine_compare(vector1, vector2, crop_param): #changed
-    similarity_param = 0.75
+    # similarity_param = 0.70
     dot_product = dot(vector1, vector2, crop_param)
     vector1_scale = math.sqrt(dot(vector1, vector1, crop_param))
     vector2_scale = math.sqrt(dot(vector2, vector2, crop_param))
@@ -57,7 +61,7 @@ def compare_color(img1, img2):
     delta_e = delta_e_cie2000(color1, color2)
     print("delta_e:", delta_e)
 
-    if delta_e < 85:
+    if delta_e < delta_e_param:
         return True
     else:
         return False
@@ -98,7 +102,7 @@ def histogram_intersection(img1, img2):
     resized_img1 = img1.resize((256, 256))
     resized_img2 = img2.resize((256, 256))
     lab_img1 = cv2.cvtColor(np.array(resized_img1), cv2.COLOR_RGB2LAB)
-    lab_img2 = cv2.cvtColor(np.array(resized_img2), cv2.COLOR_RGB2LAB)
+    lab_img2 = cv2.cvtColor(np.array(resized_img2), cv2.COLOR_BGR2LAB)
 
     hist1 = cv2.calcHist([lab_img1], [0], None, [100], [0,100])
     hist2 = cv2.calcHist([lab_img2], [0], None, [100], [0,100])
@@ -117,7 +121,7 @@ def histogram_intersection(img1, img2):
 
     average_intersection = (intersection[0]+intersection[1]+intersection[2])/(3*256*256)
     print("average_intersection:", average_intersection)
-    if average_intersection > 0.15:
+    if average_intersection > intersection_param:
         return True
     else:
         return False
