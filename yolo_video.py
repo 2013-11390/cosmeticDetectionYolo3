@@ -16,8 +16,8 @@ def detect_img(yolo):
         else:
             r_image = yolo.detect_image(image)
             # r_image.show()
-            opencvImage = cv2.cvtColor(numpy.array(image), cv2.COLOR_RGB2BGR)
-            cv2.imwrite('pictures/test_result.png',opencvImage)
+            #opencvImage = cv2.cvtColor(numpy.array(image), cv2.COLOR_RGB2BGR)
+            #cv2.imwrite('pictures/test_result.png',opencvImage)
     yolo.close_session()
 
 FLAGS = None
