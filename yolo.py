@@ -21,6 +21,8 @@ from keras.utils import multi_gpu_model
 
 from histogram import compare_color, cosine_compare, image_parse, histogram_intersection
 
+from omnis.application.image_processing.image_classification.resnet50 import ResNet50
+
 class YOLO(object):
     _defaults = {
         "model_path": 'model_data/trained_weights_stage_1.h5',
@@ -60,6 +62,11 @@ class YOLO(object):
             anchors = f.readline()
         anchors = [float(x) for x in anchors.split(',')]
         return np.array(anchors).reshape(-1, 2)
+
+    def classification(self, img):
+        resnet = ResNet50(model_path='Image_Classification.h5')
+        predict_class = resnet.predict(data_array=np.array(img))
+        return predict_class == 'outputTrue'
 
     def generate(self):
         model_path = os.path.expanduser(self.model_path)
@@ -146,33 +153,34 @@ class YOLO(object):
             vector1 = image_parse(10, origin)
             vector2 = image_parse(10, cropped_img)
             # if predicted_class == 'bottle' and (compare_color(origin, cropped_img) and cosine_compare(vector1, vector2, 10)):
-            if predicted_class == 'bottle' and (histogram_intersection(origin, cropped_img) and (cosine_compare(vector1, vector2, 10) or compare_color(origin, cropped_img))):
-                label = '{} {:.2f}'.format(predicted_class, score)
-                draw = ImageDraw.Draw(image)
-                label_size = draw.textsize(label, font)
+            if predicted_class == 'bottle':
+                if (histogram_intersection(origin, cropped_img) and (cosine_compare(vector1, vector2, 10) or compare_color(origin, cropped_img))) and self.classification(cropped_img):
+                    label = '{} {:.2f}'.format(predicted_class, score)
+                    draw = ImageDraw.Draw(image)
+                    label_size = draw.textsize(label, font)
 
-                top, left, bottom, right = box
-                top = max(0, np.floor(top + 0.5).astype('int32'))
-                left = max(0, np.floor(left + 0.5).astype('int32'))
-                bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
-                right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
-                print(label, (left, top), (right, bottom))
+                    top, left, bottom, right = box
+                    top = max(0, np.floor(top + 0.5).astype('int32'))
+                    left = max(0, np.floor(left + 0.5).astype('int32'))
+                    bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
+                    right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
+                    print(label, (left, top), (right, bottom))
 
-                if top - label_size[1] >= 0:
-                    text_origin = np.array([left, top - label_size[1]])
-                else:
-                    text_origin = np.array([left, top + 1])
+                    if top - label_size[1] >= 0:
+                        text_origin = np.array([left, top - label_size[1]])
+                    else:
+                        text_origin = np.array([left, top + 1])
 
-                # My kingdom for a good redistributable image drawing library.
-                for i in range(thickness):
+                    # My kingdom for a good redistributable image drawing library.
+                    for i in range(thickness):
+                        draw.rectangle(
+                            [left + i, top + i, right - i, bottom - i],
+                            outline=self.colors[c])
                     draw.rectangle(
-                        [left + i, top + i, right - i, bottom - i],
-                        outline=self.colors[c])
-                draw.rectangle(
-                    [tuple(text_origin), tuple(text_origin + label_size)],
-                    fill=self.colors[c])
-                draw.text(text_origin, label, fill=(0, 0, 0), font=font)
-                del draw
+                        [tuple(text_origin), tuple(text_origin + label_size)],
+                        fill=self.colors[c])
+                    draw.text(text_origin, label, fill=(0, 0, 0), font=font)
+                    del draw
 
 
         end = timer()
