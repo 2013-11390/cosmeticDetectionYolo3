@@ -68,26 +68,23 @@ python yolo_video.py --model_path model_data/yolo.h5 --classes_path model_data/c
 
 ![Raccoon](pictures/coco_1.png)
 
-### 3) Train the model for cosmetic detection:
-Step 1: Put cosmetic image in images folder by name 'image.jpg'
+### 3) Resnet 50 classification model
+Step 1: Put cosmetic image in images folder by name 'cosmetic_dataset'
+Below 'cosmetic_dataset' you have to make directories divided by class names
+cosmetic_dataset
+  | outputFalse
+  | outputTure
 
-Step 2: Augment test data
-```
-python imgAug.py
-```
 
-Step 3: Train the model(use yolo.h5 as the pretrained model) 
+Step 2: Train resnet 50 classification model
 ```
-python train.py -a imagesAug/train.txt -c model_data/coco_classes.txt -o model_data/custom_cosmetic_coco.h5
+python trainResnet.py
 ```
+Then you will get ImageClassification.h5 file in your folder
 
-Step 4: Run the model
+Step 3: Classify image by trained data
 ```
-python yolo_video.py --model_path model_data/custom_cosmetic_coco.h5 --classes_path model_data/coco_classes.txt --input 'your video name'
-```
-if you want to save the result of yolo object detecting
-```
-python yolo_video.py --model_path model_data/custom_cosmetic_coco.h5 --classes_path model_data/coco_classes.txt --input 'your video name' --output 'save file name'
+python ClassificationByResnet.py filepath
 ```
 
 
