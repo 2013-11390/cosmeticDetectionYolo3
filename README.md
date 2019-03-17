@@ -34,6 +34,8 @@ A Cosmetic detector using YOLOv3 (Tensorflow backend) for cosmetic detection (re
 
 - matplotlib
 
+- omnis 0.0.8.4
+
 ## Test data
 
 Test data is under 'images/'
