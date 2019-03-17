@@ -1,28 +1,15 @@
-"""First, copy and paste this file to the place where you want to save the image data.
-
-Then download Caltech101 dataset from the url below.
-https://github.com/mkh48v/CALTECH101
-
-After downloading the zip file, extract it to the current directory.
-
-Finally, you can get a filetree like below.
-
-CALTECH101-master/
-    Faces/
-    Faces_easy/
-    Leopards/
-    ...
-trainResnet.py
-
-Now go to the place where you put this file and data and simply run the command below.
-
-python trainResnet.py
-"""
 from omnis.application.image_processing.image_classification.resnet50 import ResNet50
+import sys
 
-cnn = ResNet50(model_path='Image_Classification.h5')
+def classify_img(data_path):
+	cnn = ResNet50(model_path='Image_Classification.h5')
 
-prediction_result = cnn.predict(data_path = 'testImage.jpg')
+	prediction_result = cnn.predict(data_path = data_path)
 
-print('predict labels')
-print(prediction_result)
+	print('predict labels')
+	print(prediction_result)
+
+
+if __name__ == '__main__':
+	if len(sys.argv) is 2 :
+		classify_img(sys.argv[1])
