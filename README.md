@@ -72,8 +72,8 @@ python yolo_video.py --model_path model_data/yolo.h5 --classes_path model_data/c
 Step 1: Put cosmetic image in images folder by name 'cosmetic_dataset'
 Below 'cosmetic_dataset' you have to make directories divided by class names
 cosmetic_dataset
-> outputFalse
-> outputTrue
+>outputFalse
+outputTrue
 
 
 Step 2: Train resnet 50 classification model
