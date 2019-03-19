@@ -49,7 +49,7 @@ def _main(annotation_path, classes_path, output_model_path):
     early_stopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1)
 
     val_split = 0.1
-    with open(annotation_path) as f:
+    with open(annotation_path, encoding='utf-8') as f:
         lines = f.readlines()
     np.random.seed(10101)
     np.random.shuffle(lines)
